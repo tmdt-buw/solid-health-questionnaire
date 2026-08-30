@@ -1,0 +1,73 @@
+{
+  "name": "@hoelk-f/solid-health-questionnaire",
+  "version": "0.1.1",
+  "private": false,
+  "description": "A Solid-native health questionnaire with private Pod persistence and standalone/embed variants.",
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "license": "Apache-2.0",
+  "type": "module",
+  "homepage": "/solid-health-questionnaire",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoelk-f/solid-health-questionnaire.git"
+  },
+  "scripts": {
+    "start": "vite --host 0.0.0.0 --port 3007",
+    "build:licenses": "node scripts/generate-third-party-notices.mjs",
+    "build:app": "npm run build:licenses && vite build",
+    "build:types": "tsc --project tsconfig.lib.json",
+    "build:lib": "vite build --config vite.lib.config.ts && npm run build:types",
+    "build:lib:watch": "vite build --watch --config vite.lib.config.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "npm run typecheck && npm run build:app && npm run build:lib",
+    "test": "vitest run"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/embed/index.d.ts",
+  "exports": {
+    "./embed": {
+      "types": "./dist/embed/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./embed.css": "./dist/embed.css"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "@inrupt/solid-client": "3.0.0",
+    "@inrupt/solid-client-authn-browser": "4.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.7",
+    "vitest": "^4.1.11"
+  }
+}

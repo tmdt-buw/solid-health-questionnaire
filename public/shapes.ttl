@@ -1,0 +1,16 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix shq: <https://raw.githubusercontent.com/hoelk-f/solid-health-questionnaire/main/public/vocab.ttl#> .
+
+shq:AssessmentShape a sh:NodeShape ;
+  sh:targetClass shq:HealthQuestionnaireAssessment ;
+  sh:property [ sh:path dcterms:creator ; sh:nodeKind sh:IRI ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path dcterms:created ; sh:datatype xsd:dateTime ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path shq:questionnaireVersion ; sh:datatype xsd:string ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path shq:achievedScore ; sh:datatype xsd:integer ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path shq:maximumScore ; sh:datatype xsd:integer ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path shq:percentage ; sh:datatype xsd:integer ; sh:minInclusive 0 ; sh:maxInclusive 100 ; sh:minCount 1 ; sh:maxCount 1 ] ;
+  sh:property [ sh:path shq:hasCategoryScore ; sh:minCount 5 ; sh:maxCount 5 ] ;
+  sh:property [ sh:path shq:hasQuestion ; sh:minCount 18 ; sh:maxCount 18 ] ;
+  sh:property [ sh:path shq:hasAnswer ; sh:minCount 18 ; sh:maxCount 18 ] .

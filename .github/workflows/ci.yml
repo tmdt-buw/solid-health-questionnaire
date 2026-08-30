@@ -1,0 +1,165 @@
+name: Solid Health Questionnaire CI and Release
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Run tests
+        run: npm test
+      - name: Build standalone and embed variants
+        run: npm run build
+
+  release:
+    needs: verify
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          registry-url: "https://npm.pkg.github.com"
+          scope: "@hoelk-f"
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate package version
+        id: package-version
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          node - <<'NODE'
+          const { execFileSync } = require('node:child_process');
+          const pkg = require('./package.json');
+
+          const parse = (version) => version.split('.').map((part) => Number.parseInt(part, 10));
+          const compare = (left, right) => {
+            const a = parse(left);
+            const b = parse(right);
+            for (let index = 0; index < 3; index += 1) {
+              const difference = (a[index] || 0) - (b[index] || 0);
+              if (difference !== 0) return Math.sign(difference);
+            }
+            return 0;
+          };
+
+          if (!/^\d+\.\d+\.\d+$/.test(pkg.version)) {
+            throw new Error(`package.json contains an invalid release version: ${pkg.version}`);
+          }
+
+          let latest = '';
+          try {
+            latest = execFileSync(
+              'npm',
+              ['view', '@hoelk-f/solid-health-questionnaire', 'version', '--registry', 'https://npm.pkg.github.com'],
+              { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] },
+            ).trim();
+          } catch {
+            // The first release has no package to query yet.
+          }
+
+          console.log(`Current version: ${pkg.version}`);
+          if (latest) {
+            console.log(`Published version: ${latest}`);
+            if (compare(pkg.version, latest) <= 0) {
+              throw new Error(
+                `package.json version (${pkg.version}) must be greater than the published version (${latest}). Run versioning-update.ps1 before publishing.`,
+              );
+            }
+          }
+          NODE
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          echo "package_version=$PACKAGE_VERSION" >> "$GITHUB_OUTPUT"
+      - name: Build standalone and embed variants
+        run: npm run build
+      - name: Publish embed package to GitHub Packages
+        run: npm publish ./dist
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: docker/setup-buildx-action@v3
+      - name: Check Docker Hub secrets
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for secret_name in DOCKERHUB_USERNAME DOCKERHUB_TOKEN; do
+            if [ -z "${!secret_name:-}" ]; then
+              echo "Missing repository secret ${secret_name}." >&2
+              exit 1
+            fi
+          done
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and publish production image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: |
+            son1i/solid-health-questionnaire:latest
+            son1i/solid-health-questionnaire:${{ steps.package-version.outputs.package_version }}
+      - name: Wait for the published embed package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PACKAGE_VERSION: ${{ steps.package-version.outputs.package_version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for attempt in $(seq 1 18); do
+            PUBLISHED_VERSION=$(npm view "@hoelk-f/solid-health-questionnaire@${PACKAGE_VERSION}" version --registry https://npm.pkg.github.com 2>/dev/null || true)
+            if [ "$PUBLISHED_VERSION" = "$PACKAGE_VERSION" ]; then
+              exit 0
+            fi
+
+            if [ "$attempt" -eq 18 ]; then
+              echo "Published package did not become visible in time. Expected ${PACKAGE_VERSION}, got ${PUBLISHED_VERSION:-<empty>}." >&2
+              exit 1
+            fi
+
+            sleep 10
+          done
+      - name: Trigger Solid Dataspace Manager rebuild
+        env:
+          MANAGER_TOKEN: ${{ secrets.NPM_TOKEN }}
+          PACKAGE_VERSION: ${{ steps.package-version.outputs.package_version }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -z "${MANAGER_TOKEN:-}" ]; then
+            echo "NPM_TOKEN is not configured; the central versioning run will update and rebuild the Manager."
+            exit 0
+          fi
+
+          PAYLOAD=$(node -e 'process.stdout.write(JSON.stringify({event_type: "solid-health-questionnaire-released", client_payload: {package: "@hoelk-f/solid-health-questionnaire", version: process.env.PACKAGE_VERSION}}))')
+          curl --fail-with-body --silent --show-error -L \
+            -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${MANAGER_TOKEN}" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            https://api.github.com/repos/hoelk-f/solid-dataspace-manager/dispatches \
+            --data "$PAYLOAD"

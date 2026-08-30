@@ -1,0 +1,757 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap");
+
+.solid-health-questionnaire {
+  --shq-bg: #f8fafc;
+  --shq-bg-raised: #f1f5f9;
+  --shq-surface: #ffffff;
+  --shq-surface-soft: #f8fafc;
+  --shq-border: #dce4ee;
+  --shq-text: #0f172a;
+  --shq-muted: #475569;
+  --shq-dim: #64748b;
+  --shq-primary: #142642;
+  --shq-primary-hover: #1d355a;
+  --shq-primary-ghost: #eaf2ff;
+  --shq-gold: #b45309;
+  --shq-gold-soft: #f59e0b;
+  --shq-focus: #2563eb;
+  --shq-red: #dc2626;
+  --shq-green: #16a34a;
+  --shq-amber: #d97706;
+  --shq-vh: 100dvh;
+  --category-ink: color-mix(in srgb, var(--category-accent, #64748b) 48%, #0f172a);
+  --shq-radius-sm: .65rem;
+  --shq-radius-md: 1rem;
+  --shq-radius-lg: 1.5rem;
+  --shq-scroll-track: #e8edf4;
+  --shq-scroll-thumb: #8393a8;
+  --shq-scroll-thumb-hover: #142642;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+  overflow-x: clip;
+  color: var(--shq-text);
+  background:
+    radial-gradient(circle at 8% 0%, rgba(37, 99, 235, .055), transparent 24rem),
+    radial-gradient(circle at 96% 32%, rgba(245, 158, 11, .06), transparent 27rem),
+    var(--shq-bg);
+  font-family: "Manrope", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color-scheme: light;
+  isolation: isolate;
+}
+
+.solid-health-questionnaire--embedded {
+  --shq-vh: var(--dataspace-scaled-vh, 100vh);
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.solid-health-questionnaire--loading { min-height: 100vh; min-height: 100dvh; }
+.solid-health-questionnaire--standalone.solid-health-questionnaire--loading {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+.solid-health-questionnaire--embedded.solid-health-questionnaire--loading {
+  height: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+
+.solid-health-questionnaire .shq-questionnaire,
+.solid-health-questionnaire .shq-welcome__category,
+.solid-health-questionnaire .shq-result-card,
+.solid-health-questionnaire .shq-detail {
+  --category-ink: color-mix(in srgb, var(--category-accent) 48%, #0f172a);
+}
+
+.solid-health-questionnaire,
+.solid-health-questionnaire *,
+.solid-health-questionnaire *::before,
+.solid-health-questionnaire *::after { box-sizing: border-box; }
+
+.solid-health-questionnaire,
+.solid-health-questionnaire * {
+  scrollbar-width: thin;
+  scrollbar-color: var(--shq-scroll-thumb) var(--shq-scroll-track);
+}
+
+.solid-health-questionnaire *::-webkit-scrollbar {
+  width: .75rem;
+  height: .75rem;
+}
+
+.solid-health-questionnaire *::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: var(--shq-scroll-track);
+}
+
+.solid-health-questionnaire *::-webkit-scrollbar-thumb {
+  min-height: 2.5rem;
+  border: .16rem solid var(--shq-scroll-track);
+  border-radius: 999px;
+  background: var(--shq-scroll-thumb);
+}
+
+.solid-health-questionnaire *::-webkit-scrollbar-thumb:hover {
+  background: var(--shq-scroll-thumb-hover);
+}
+
+.solid-health-questionnaire button,
+.solid-health-questionnaire input { font: inherit; }
+
+.solid-health-questionnaire button,
+.solid-health-questionnaire a { -webkit-tap-highlight-color: transparent; }
+
+.solid-health-questionnaire button:focus-visible,
+.solid-health-questionnaire a:focus-visible,
+.solid-health-questionnaire input:focus-visible {
+  outline: 3px solid var(--shq-focus);
+  outline-offset: 3px;
+}
+
+.solid-health-questionnaire h1[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.solid-health-questionnaire h1,
+.solid-health-questionnaire h2,
+.solid-health-questionnaire h3,
+.solid-health-questionnaire p { margin-top: 0; }
+
+.solid-health-questionnaire h1,
+.solid-health-questionnaire h2,
+.solid-health-questionnaire h3 {
+  font-weight: 650;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.solid-health-questionnaire .shq-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.solid-health-questionnaire .shq-eyebrow {
+  display: block;
+  margin-bottom: .6rem;
+  color: var(--shq-gold);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.solid-health-questionnaire .shq-button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .72rem 1.25rem;
+  border: 1px solid transparent;
+  border-radius: .875rem;
+  cursor: pointer;
+  font-weight: 750;
+  line-height: 1.15;
+  text-decoration: none;
+  transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+}
+
+.solid-health-questionnaire .shq-button:hover:not(:disabled) { transform: translateY(-2px); }
+.solid-health-questionnaire .shq-button:disabled { cursor: not-allowed; opacity: .42; }
+.solid-health-questionnaire .shq-button svg { width: 1.1rem; height: 1.1rem; }
+.solid-health-questionnaire .shq-button--primary { color: #ffffff; background: var(--shq-primary); box-shadow: 0 10px 24px rgba(20, 38, 66, .18); }
+.solid-health-questionnaire .shq-button--primary:hover:not(:disabled) { background: var(--shq-primary-hover); }
+.solid-health-questionnaire .shq-button--ghost { color: var(--shq-text); background: transparent; border-color: var(--shq-border); }
+.solid-health-questionnaire .shq-button--ghost:hover:not(:disabled) { border-color: #94a3b8; background: #f8fafc; }
+.solid-health-questionnaire .shq-button--outline { color: var(--shq-primary); background: #ffffff; border-color: var(--shq-primary); }
+.solid-health-questionnaire .shq-button--full { width: 100%; }
+.solid-health-questionnaire .shq-button--small { min-height: 2.35rem; padding: .45rem .85rem; font-size: .82rem; }
+
+.solid-health-questionnaire .shq-icon-button {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--shq-border);
+  border-radius: 50%;
+  color: var(--shq-text);
+  background: rgba(255, 255, 255, .92);
+  cursor: pointer;
+}
+
+.solid-health-questionnaire .shq-icon-button:hover { border-color: var(--shq-gold); color: var(--shq-gold); }
+.solid-health-questionnaire .shq-icon-button svg { width: 1.35rem; height: 1.35rem; }
+
+.solid-health-questionnaire .shq-language {
+  display: inline-flex;
+  gap: .2rem;
+  padding: .2rem;
+  border: 1px solid var(--shq-border);
+  border-radius: 999px;
+  background: #f1f5f9;
+}
+
+.solid-health-questionnaire .shq-language button {
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  padding: .3rem .45rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--shq-muted);
+  background: transparent;
+  cursor: pointer;
+  font-size: .7rem;
+  font-weight: 800;
+}
+
+.solid-health-questionnaire .shq-language button.is-active { color: #ffffff; background: var(--shq-primary); }
+.solid-health-questionnaire .shq-form-error { margin: .8rem 0; color: #b42318; font-size: .84rem; line-height: 1.4; }
+.solid-health-questionnaire .shq-inline-notice { display: flex; max-width: 45rem; align-items: flex-start; gap: .55rem; margin: 1rem 0 0; padding: .85rem 1rem; border: 1px solid #fed7aa; border-radius: .8rem; color: #9a3412; background: #fff7ed; font-size: .84rem; line-height: 1.5; }
+.solid-health-questionnaire .shq-inline-notice svg { width: 1.05rem; flex: 0 0 auto; margin-top: .14rem; color: var(--shq-gold); }
+.solid-health-questionnaire .shq-app-stage { min-height: 0; }
+.solid-health-questionnaire--embedded .shq-app-stage {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+/* Standalone chrome */
+.solid-health-questionnaire .shq-standalone-header {
+  position: sticky;
+  z-index: 20;
+  top: 0;
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .75rem clamp(1rem, 4vw, 3.5rem);
+  border-bottom: 1px solid rgba(226, 232, 240, .92);
+  background: rgba(255, 255, 255, .9);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+  backdrop-filter: blur(18px);
+}
+
+.solid-health-questionnaire .shq-standalone-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  color: var(--shq-text);
+  font-weight: 760;
+  text-decoration: none;
+}
+
+.solid-health-questionnaire .shq-standalone-header__brand svg { width: 1.55rem; color: var(--shq-gold); }
+.solid-health-questionnaire .shq-standalone-header > div { display: flex; align-items: center; gap: .75rem; }
+.solid-health-questionnaire .shq-standalone-header__pod { display: inline-flex; align-items: center; gap: .4rem; color: var(--shq-muted); font-size: .78rem; }
+.solid-health-questionnaire .shq-standalone-header__pod svg { width: 1rem; color: var(--shq-green); }
+.solid-health-questionnaire .shq-standalone-footer {
+  display: flex;
+  min-height: 4rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem;
+  border-top: 1px solid var(--shq-border);
+  background: rgba(255, 255, 255, .72);
+  color: var(--shq-dim);
+  font-size: .72rem;
+}
+.solid-health-questionnaire .shq-standalone-footer span { display: inline-flex; align-items: center; gap: .35rem; }
+.solid-health-questionnaire .shq-standalone-footer svg { width: .9rem; }
+.solid-health-questionnaire .shq-standalone-footer__legal { flex-wrap: wrap; gap: .8rem; }
+.solid-health-questionnaire .shq-standalone-footer__legal a { color: var(--shq-muted); text-underline-offset: .18em; }
+.solid-health-questionnaire .shq-standalone-footer__legal a:hover { color: var(--shq-gold); }
+
+/* Login */
+.solid-health-questionnaire .shq-login {
+  display: grid;
+  min-height: var(--shq-vh);
+  grid-template-columns: minmax(0, 1.1fr) minmax(22rem, .9fr);
+}
+
+.solid-health-questionnaire .shq-login__story {
+  position: relative;
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(2rem, 6vw, 5.5rem);
+  background:
+    radial-gradient(circle at 82% 14%, rgba(255, 255, 255, .88), transparent 18rem),
+    linear-gradient(128deg, #fff7ed, #fde68a 54%, #fdba74);
+  color: var(--shq-primary);
+}
+
+.solid-health-questionnaire .shq-login__story::before,
+.solid-health-questionnaire .shq-login__story::after {
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+  border-radius: 50%;
+  content: "";
+  filter: blur(32px);
+  opacity: .38;
+}
+.solid-health-questionnaire .shq-login__story::before { top: -8rem; right: -5rem; background: #ffffff; }
+.solid-health-questionnaire .shq-login__story::after { bottom: -10rem; left: -8rem; background: #f59e0b; }
+.solid-health-questionnaire .shq-login__brand { position: relative; z-index: 1; display: flex; align-items: center; gap: .7rem; font-weight: 800; }
+.solid-health-questionnaire .shq-login__brand svg { width: 1.55rem; }
+.solid-health-questionnaire .shq-login__copy { position: relative; z-index: 1; max-width: 44rem; padding: 5rem 0; }
+.solid-health-questionnaire .shq-login__copy .shq-eyebrow { color: #854d0e; }
+.solid-health-questionnaire .shq-login__copy h1 { max-width: 12ch; margin-bottom: 1.5rem; font-size: clamp(3rem, 6vw, 6.7rem); line-height: .94; }
+.solid-health-questionnaire .shq-login__copy p { max-width: 42rem; margin: 0; font-size: clamp(1rem, 1.5vw, 1.25rem); line-height: 1.55; }
+.solid-health-questionnaire .shq-login__constellation { position: absolute; right: 8%; bottom: 8%; width: 14rem; height: 14rem; border: 1px solid rgba(20,38,66,.2); border-radius: 50%; }
+.solid-health-questionnaire .shq-login__constellation::before { position: absolute; inset: 2rem; border: 1px dashed rgba(20,38,66,.24); border-radius: 50%; content: ""; }
+.solid-health-questionnaire .shq-login__constellation > svg { position: absolute; inset: 50% auto auto 50%; width: 3.6rem; transform: translate(-50%,-50%); }
+.solid-health-questionnaire .shq-login__constellation span { position: absolute; width: .65rem; height: .65rem; border-radius: 50%; background: var(--shq-primary); }
+.solid-health-questionnaire .shq-login__constellation .is-one { top: 5%; left: 48%; }
+.solid-health-questionnaire .shq-login__constellation .is-two { top: 66%; left: 4%; }
+.solid-health-questionnaire .shq-login__constellation .is-three { right: 10%; bottom: 18%; }
+
+.solid-health-questionnaire .shq-login__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 4.5rem);
+  border-left: 1px solid var(--shq-border);
+  background: #ffffff;
+}
+.solid-health-questionnaire .shq-login__panel > .shq-language { position: absolute; top: 1.5rem; right: 1.5rem; }
+.solid-health-questionnaire .shq-login__panel-heading { display: flex; align-items: center; gap: .85rem; margin-bottom: 2rem; }
+.solid-health-questionnaire .shq-login__panel-heading > svg { width: 2rem; color: var(--shq-gold); }
+.solid-health-questionnaire .shq-login__panel-heading span { color: var(--shq-muted); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+.solid-health-questionnaire .shq-login__panel-heading h2 { margin: .15rem 0 0; font-size: 1.45rem; }
+.solid-health-questionnaire .shq-login__panel fieldset { display: grid; gap: .65rem; margin: 0 0 1.25rem; padding: 0; border: 0; }
+.solid-health-questionnaire .shq-provider {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: .8rem;
+  align-items: center;
+  width: 100%;
+  padding: .9rem 1rem;
+  border: 1px solid var(--shq-border);
+  border-radius: var(--shq-radius-md);
+  color: var(--shq-text);
+  background: var(--shq-surface);
+  cursor: pointer;
+  text-align: left;
+}
+.solid-health-questionnaire .shq-provider:hover { border-color: #94a3b8; background: #f8fafc; }
+.solid-health-questionnaire .shq-provider.is-active { border-color: #93b4e7; background: #eff6ff; box-shadow: inset 0 0 0 1px rgba(37, 99, 235, .08); }
+.solid-health-questionnaire .shq-provider__radio { width: 1.15rem; height: 1.15rem; border: 2px solid #94a3b8; border-radius: 50%; box-shadow: inset 0 0 0 3px var(--shq-surface); }
+.solid-health-questionnaire .shq-provider.is-active .shq-provider__radio { border-color: var(--shq-primary); background: var(--shq-primary); box-shadow: inset 0 0 0 3px #eff6ff; }
+.solid-health-questionnaire .shq-provider strong,
+.solid-health-questionnaire .shq-provider small { display: block; }
+.solid-health-questionnaire .shq-provider strong { font-size: .92rem; }
+.solid-health-questionnaire .shq-provider small { overflow: hidden; margin-top: .15rem; color: var(--shq-muted); font-size: .69rem; text-overflow: ellipsis; }
+.solid-health-questionnaire .shq-provider em { padding: .25rem .45rem; border-radius: 999px; color: #1e40af; background: #dbeafe; font-size: .68rem; font-style: normal; font-weight: 800; }
+.solid-health-questionnaire .shq-login__custom { display: grid; gap: .4rem; margin-bottom: 1rem; color: var(--shq-muted); font-size: .76rem; font-weight: 700; }
+.solid-health-questionnaire .shq-login__custom > div { display: flex; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-sm); background: #ffffff; box-shadow: inset 0 1px 2px rgba(15, 23, 42, .04); }
+.solid-health-questionnaire .shq-login__custom input { min-width: 0; flex: 1; padding: .8rem .9rem; border: 0; color: var(--shq-text); background: transparent; }
+.solid-health-questionnaire .shq-login__custom button { display: grid; width: 2.75rem; place-items: center; border: 0; color: var(--shq-muted); background: transparent; cursor: pointer; }
+.solid-health-questionnaire .shq-login__custom button svg { width: 1.1rem; }
+.solid-health-questionnaire .shq-login__privacy { display: flex; gap: .6rem; align-items: flex-start; margin: 1.25rem 0 0; color: var(--shq-dim); font-size: .72rem; }
+.solid-health-questionnaire .shq-login__privacy svg { width: 1rem; flex: 0 0 auto; }
+
+/* Loading, auth and errors */
+.solid-health-questionnaire .shq-boot-loader {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 3rem 1.25rem;
+  color: #14253d;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(23, 89, 173, .09), transparent 18rem),
+    #f5f7fb;
+  text-align: center;
+}
+.solid-health-questionnaire--embedded .shq-boot-loader {
+  height: 100%;
+  min-height: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(23, 89, 173, .075), transparent 18rem),
+    #ffffff;
+}
+.solid-health-questionnaire .shq-boot-loader__mark {
+  width: 5rem;
+  height: 5rem;
+  display: grid;
+  place-items: center;
+  color: #1759ad;
+  border: 1px solid #cbdcf2;
+  border-radius: 1.5rem;
+  background: #eff6ff;
+  box-shadow: 0 14px 30px rgba(15, 40, 74, .1);
+  transform: rotate(-5deg);
+}
+.solid-health-questionnaire .shq-boot-loader__mark svg { width: 2.35rem; height: 2.35rem; }
+.solid-health-questionnaire .shq-boot-loader h1 {
+  margin: 1.25rem 0 .55rem;
+  color: #10284a;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  letter-spacing: -.035em;
+}
+.solid-health-questionnaire .shq-boot-loader p {
+  max-width: 34rem;
+  margin: 0;
+  color: #64748b;
+  font-weight: 650;
+  line-height: 1.5;
+}
+.solid-health-questionnaire .shq-boot-loader__rail {
+  width: min(18rem, 70vw);
+  height: .25rem;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  border-radius: 999px;
+  background: #dce4ef;
+}
+.solid-health-questionnaire .shq-boot-loader__rail > span {
+  width: 42%;
+  height: 100%;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1759ad, #4f8dd7);
+  animation: shq-boot-progress 1.25s ease-in-out infinite alternate;
+}
+
+.solid-health-questionnaire .shq-state-screen {
+  display: flex;
+  min-height: min(42rem, calc(var(--shq-vh) - 8.5rem));
+  max-width: 44rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  padding: 3rem 1.25rem;
+  text-align: center;
+}
+.solid-health-questionnaire .shq-state-screen h1 { margin: 1.25rem 0 .6rem; font-size: clamp(1.8rem, 4vw, 3rem); }
+.solid-health-questionnaire .shq-state-screen p { max-width: 38rem; color: var(--shq-muted); }
+.solid-health-questionnaire .shq-loader-mark { display: grid; width: 5rem; height: 5rem; place-items: center; border: 1px solid #fed7aa; border-radius: 1.5rem; color: var(--shq-gold); background: #fff7ed; transform: rotate(-5deg); box-shadow: 0 14px 30px rgba(15, 23, 42, .08); }
+.solid-health-questionnaire .shq-loader-mark svg { width: 2.4rem; }
+.solid-health-questionnaire .shq-loader-mark--error { color: #9f1239; border-color: #fecdd3; background: #fff1f2; }
+
+/* Onboarding */
+.solid-health-questionnaire .shq-onboarding { display: grid; min-height: min(50rem, calc(var(--shq-vh) - 8.5rem)); place-items: center; padding: clamp(1rem, 4vw, 3rem); }
+.solid-health-questionnaire .shq-onboarding__card { width: min(54rem, 100%); padding: clamp(1.25rem, 4vw, 2.5rem); border: 1px solid var(--shq-border); border-radius: var(--shq-radius-lg); background: rgba(255, 255, 255, .96); box-shadow: 0 24px 60px rgba(15, 23, 42, .11); }
+.solid-health-questionnaire .shq-onboarding__card > header { display: grid; grid-template-columns: auto 1fr; gap: 1rem; }
+.solid-health-questionnaire .shq-onboarding__mark { display: grid; width: 3.4rem; height: 3.4rem; place-items: center; border-radius: 1rem; color: #ffffff; background: var(--shq-primary); }
+.solid-health-questionnaire .shq-onboarding__mark svg { width: 1.7rem; }
+.solid-health-questionnaire .shq-onboarding h1 { margin: 0 0 .65rem; font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.05; }
+.solid-health-questionnaire .shq-onboarding header p { max-width: 43rem; margin-bottom: 0; color: var(--shq-muted); }
+.solid-health-questionnaire .shq-onboarding__destination { display: grid; grid-template-columns: auto minmax(0,1fr); gap: 1rem; margin: 1.5rem 0; padding: .8rem 1rem; border-left: 3px solid var(--shq-gold); background: #f8fafc; font-size: .76rem; }
+.solid-health-questionnaire .shq-onboarding__destination span { font-weight: 800; }
+.solid-health-questionnaire .shq-onboarding__destination code { overflow: hidden; color: var(--shq-muted); text-overflow: ellipsis; white-space: nowrap; }
+.solid-health-questionnaire .shq-onboarding__items { display: grid; gap: .7rem; }
+.solid-health-questionnaire .shq-onboarding__items label { display: grid; grid-template-columns: auto auto 1fr; gap: .8rem; align-items: center; padding: .85rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-md); cursor: pointer; transition: border-color .18s ease, background .18s ease, transform .18s ease; }
+.solid-health-questionnaire .shq-onboarding__items label:hover { transform: translateX(3px); border-color: #94a3b8; background: #f8fafc; }
+.solid-health-questionnaire .shq-onboarding__items label.is-checked { border-color: #93b4e7; background: #eff6ff; }
+.solid-health-questionnaire .shq-onboarding__items input { width: 1.15rem; height: 1.15rem; accent-color: var(--shq-gold); }
+.solid-health-questionnaire .shq-onboarding__item-icon { display: grid; width: 2.4rem; height: 2.4rem; place-items: center; border-radius: .7rem; color: var(--shq-muted); background: #f1f5f9; }
+.solid-health-questionnaire .is-checked .shq-onboarding__item-icon { color: var(--shq-primary); background: #dbeafe; }
+.solid-health-questionnaire .shq-onboarding__item-icon svg { width: 1.25rem; }
+.solid-health-questionnaire .shq-onboarding__item-copy strong { display: flex; align-items: baseline; gap: .6rem; font-size: .9rem; }
+.solid-health-questionnaire .shq-onboarding__item-copy strong em { color: var(--shq-gold); font-size: .62rem; font-style: normal; letter-spacing: .1em; }
+.solid-health-questionnaire .shq-onboarding__item-copy small { display: block; margin-top: .2rem; color: var(--shq-muted); font-size: .74rem; line-height: 1.45; }
+.solid-health-questionnaire .shq-onboarding__card > footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+.solid-health-questionnaire .shq-onboarding__card > footer p { margin: 0; color: #9a3412; font-size: .74rem; }
+.solid-health-questionnaire .shq-onboarding__card > footer > div { display: flex; gap: .65rem; margin-left: auto; }
+
+/* Welcome */
+.solid-health-questionnaire .shq-welcome {
+  display: grid;
+  width: min(78rem, 100%);
+  min-height: min(48rem, calc(var(--shq-vh) - 8.5rem));
+  grid-template-columns: minmax(0, 1fr) minmax(24rem, .86fr);
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  margin: auto;
+  padding: clamp(2rem, 7vw, 6rem) clamp(1.25rem, 5vw, 4rem);
+}
+.solid-health-questionnaire .shq-welcome__copy h1 { max-width: 13ch; margin-bottom: 1.25rem; font-size: clamp(2.7rem, 5.7vw, 6rem); line-height: .98; }
+.solid-health-questionnaire .shq-welcome__copy > p { max-width: 42rem; color: var(--shq-muted); font-size: clamp(1rem, 1.4vw, 1.18rem); line-height: 1.65; }
+.solid-health-questionnaire .shq-welcome__actions { display: flex; flex-wrap: wrap; gap: .7rem; margin: 2rem 0 1.25rem; }
+.solid-health-questionnaire .shq-welcome__visual { display: grid; place-items: center; }
+.solid-health-questionnaire .shq-welcome__orbit { position: relative; width: min(31rem, 38vw); min-width: 25rem; aspect-ratio: 1; border: 1px solid #d9e2ec; border-radius: 50%; background: radial-gradient(circle, rgba(245, 158, 11, .12), rgba(255,255,255,.45) 45%, transparent 68%); }
+.solid-health-questionnaire .shq-welcome__orbit::before,
+.solid-health-questionnaire .shq-welcome__orbit::after { position: absolute; border: 1px dashed #cbd5e1; border-radius: 50%; content: ""; }
+.solid-health-questionnaire .shq-welcome__orbit::before { inset: 14%; }
+.solid-health-questionnaire .shq-welcome__orbit::after { inset: 32%; }
+.solid-health-questionnaire .shq-welcome__core { position: absolute; z-index: 2; inset: 50% auto auto 50%; display: grid; width: 6rem; height: 6rem; place-items: center; border: 1px solid #1d355a; border-radius: 2rem; color: #ffffff; background: var(--shq-primary); transform: translate(-50%,-50%) rotate(-5deg); box-shadow: 0 15px 40px rgba(20,38,66,.2); }
+.solid-health-questionnaire .shq-welcome__core svg { width: 2.7rem; }
+.solid-health-questionnaire .shq-welcome__category { position: absolute; z-index: 3; display: grid; width: 5.4rem; min-height: 5.4rem; place-items: center; padding: .6rem; border: 1px solid color-mix(in srgb, var(--category-accent) 42%, #dce4ee); border-radius: 1.3rem; color: var(--category-ink); background: #ffffff; text-align: center; box-shadow: 0 14px 30px rgba(15,23,42,.11); }
+.solid-health-questionnaire .shq-welcome__category svg { width: 1.8rem; }
+.solid-health-questionnaire .shq-welcome__category small { margin-top: .15rem; color: var(--shq-text); font-size: .62rem; font-weight: 700; }
+.solid-health-questionnaire .shq-welcome__category--1 { top: -4%; left: 39%; }
+.solid-health-questionnaire .shq-welcome__category--2 { top: 28%; right: -4%; }
+.solid-health-questionnaire .shq-welcome__category--3 { right: 10%; bottom: 2%; }
+.solid-health-questionnaire .shq-welcome__category--4 { bottom: 2%; left: 10%; }
+.solid-health-questionnaire .shq-welcome__category--5 { top: 28%; left: -4%; }
+
+/* Question flow */
+.solid-health-questionnaire .shq-questionnaire { display: flex; min-height: min(54rem, calc(var(--shq-vh) - 8.5rem)); flex-direction: column; }
+.solid-health-questionnaire--embedded .shq-questionnaire { width: 100%; height: 100%; min-height: 0; flex: 1 1 auto; overflow: hidden; }
+.solid-health-questionnaire .shq-questionnaire__header { display: flex; min-height: 7rem; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem clamp(1.25rem, 5vw, 4rem); border-radius: 0 0 2rem 2rem; color: #ffffff; background: linear-gradient(120deg, #10233f, #142642 58%, #1d355a); }
+.solid-health-questionnaire--embedded .shq-questionnaire__header { border-radius: 1.125rem 1.125rem 0 0; }
+.solid-health-questionnaire .shq-questionnaire__header .shq-icon-button { border-color: rgba(255,255,255,.42); color: #ffffff; background: rgba(255,255,255,.08); }
+.solid-health-questionnaire .shq-questionnaire__header .shq-icon-button:hover { border-color: #ffffff; color: #ffffff; background: rgba(255,255,255,.16); }
+.solid-health-questionnaire .shq-questionnaire__header > div { display: flex; flex-direction: column; }
+.solid-health-questionnaire .shq-questionnaire__brand { font-size: clamp(1.6rem, 3vw, 2.6rem); font-weight: 750; letter-spacing: -.035em; }
+.solid-health-questionnaire .shq-questionnaire__progress-copy { margin-top: .2rem; font-size: .76rem; font-weight: 700; opacity: .7; }
+.solid-health-questionnaire .shq-questionnaire__progress { height: .3rem; margin-top: -1px; background: #e2e8f0; }
+.solid-health-questionnaire .shq-questionnaire__progress > span { display: block; height: 100%; border-radius: 0 999px 999px 0; background: var(--category-accent); transition: width .35s ease; }
+.solid-health-questionnaire .shq-questionnaire__body { width: min(59rem, 100%); min-height: 0; flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem); animation: shq-reveal .35s ease both; }
+.solid-health-questionnaire .shq-questionnaire__category { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.5rem; color: var(--category-ink); }
+.solid-health-questionnaire .shq-questionnaire__category > span { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border-radius: .65rem; background: color-mix(in srgb, var(--category-accent) 18%, transparent); }
+.solid-health-questionnaire .shq-questionnaire__category svg { width: 1.25rem; }
+.solid-health-questionnaire .shq-questionnaire__category strong { font-size: 1.05rem; }
+.solid-health-questionnaire .shq-questionnaire__category button { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; margin-left: auto; border: 0; border-radius: 50%; color: var(--category-ink); background: transparent; cursor: pointer; }
+.solid-health-questionnaire .shq-questionnaire__category button:hover { background: color-mix(in srgb, var(--category-accent) 12%, #ffffff); }
+.solid-health-questionnaire .shq-questionnaire__hint { margin: -1rem 0 1.25rem; padding: .75rem 1rem; border-left: 2px solid var(--category-accent); color: var(--shq-muted); background: var(--shq-bg-raised); font-size: .78rem; }
+.solid-health-questionnaire .shq-questionnaire__body h1 { max-width: 25ch; margin-bottom: 2.2rem; font-size: clamp(1.75rem, 4vw, 3.3rem); line-height: 1.18; }
+.solid-health-questionnaire .shq-answers { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .7rem; margin: 0; padding: .85rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-lg); background: var(--shq-bg-raised); }
+.solid-health-questionnaire .shq-answers label { display: flex; min-height: 4rem; align-items: center; gap: .8rem; padding: .8rem 1rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-md); color: var(--shq-text); background: var(--shq-surface); cursor: pointer; transition: transform .16s ease, border-color .16s ease, background .16s ease; }
+.solid-health-questionnaire .shq-answers label:hover { transform: translateY(-2px); border-color: #94a3b8; box-shadow: 0 8px 18px rgba(15,23,42,.07); }
+.solid-health-questionnaire .shq-answers label.is-selected { border-color: var(--category-ink); background: color-mix(in srgb, var(--category-accent) 12%, #ffffff); }
+.solid-health-questionnaire .shq-answers input { position: absolute; opacity: 0; pointer-events: none; }
+.solid-health-questionnaire .shq-answers__control { display: grid; width: 1.55rem; height: 1.55rem; flex: 0 0 auto; place-items: center; border: 2px solid #94a3b8; border-radius: 50%; color: transparent; }
+.solid-health-questionnaire .shq-answers input:focus-visible + .shq-answers__control {
+  outline: 3px solid var(--shq-focus);
+  outline-offset: 3px;
+}
+.solid-health-questionnaire .is-selected .shq-answers__control { border-color: var(--category-ink); color: #ffffff; background: var(--category-ink); }
+.solid-health-questionnaire .shq-answers__control svg { width: .9rem; }
+.solid-health-questionnaire .shq-questionnaire__footer { position: relative; z-index: 1; flex: 0 0 auto; margin-top: auto; padding: 1rem clamp(1.25rem, 5vw, 4rem) .65rem; border-top: 1px solid var(--shq-border); background: rgba(255, 255, 255, .97); box-shadow: 0 -12px 28px rgba(15, 23, 42, .035); }
+.solid-health-questionnaire .shq-questionnaire__actions { display: flex; align-items: center; justify-content: flex-end; gap: .7rem; }
+.solid-health-questionnaire .shq-questionnaire__actions > .shq-button:first-child { margin-right: auto; }
+.solid-health-questionnaire .shq-questionnaire__navigation { display: grid; min-width: 0; justify-items: center; gap: .1rem; margin-top: .35rem; }
+.solid-health-questionnaire .shq-questionnaire__answered-count { color: var(--shq-dim); font-size: .68rem; font-weight: 700; }
+.solid-health-questionnaire .shq-questionnaire__dots { display: flex; width: min(42rem, 100%); max-width: 100%; justify-content: center; gap: .05rem; overflow-x: auto; overscroll-behavior-x: contain; scrollbar-gutter: stable; }
+.solid-health-questionnaire .shq-questionnaire__dots::-webkit-scrollbar { height: .42rem; }
+.solid-health-questionnaire .shq-questionnaire__dots button { position: relative; display: grid; width: 1.75rem; height: 1.55rem; flex: 0 0 auto; place-items: center; padding: 0; border: 0; border-radius: .45rem; background: transparent; cursor: pointer; }
+.solid-health-questionnaire .shq-questionnaire__dots button::before { width: 1.05rem; height: .28rem; border-radius: 999px; background: #d7dee8; content: ""; transition: width .16s ease, height .16s ease, background .16s ease, transform .16s ease; }
+.solid-health-questionnaire .shq-questionnaire__dots button:hover::before { background: color-mix(in srgb, var(--question-accent) 38%, #cbd5e1); transform: translateY(-1px); }
+.solid-health-questionnaire .shq-questionnaire__dots button.is-complete::before { background: color-mix(in srgb, var(--question-accent) 72%, #cbd5e1); }
+.solid-health-questionnaire .shq-questionnaire__dots button.is-active::before { width: 1.4rem; height: .38rem; background: var(--question-accent); }
+
+/* Shared artwork */
+.solid-health-questionnaire .shq-artwork { position: relative; min-height: 15rem; overflow: hidden; border-radius: var(--shq-radius-lg); background: linear-gradient(135deg, color-mix(in srgb, var(--category-accent) 72%, #222), color-mix(in srgb, var(--category-accent) 34%, #111)); isolation: isolate; }
+.solid-health-questionnaire .shq-artwork::before { position: absolute; inset: 0; background: linear-gradient(125deg, rgba(255,255,255,.14), transparent 45%); content: ""; }
+.solid-health-questionnaire .shq-artwork__orb { position: absolute; border-radius: 50%; background: rgba(255,255,255,.11); }
+.solid-health-questionnaire .shq-artwork__orb--one { width: 12rem; height: 12rem; top: -5rem; left: -2rem; }
+.solid-health-questionnaire .shq-artwork__orb--two { width: 8rem; height: 8rem; right: -2rem; bottom: -3rem; }
+.solid-health-questionnaire .shq-artwork__grid { position: absolute; inset: 0; opacity: .14; background-image: linear-gradient(rgba(255,255,255,.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.3) 1px, transparent 1px); background-size: 2rem 2rem; transform: rotate(-8deg) scale(1.2); }
+.solid-health-questionnaire .shq-artwork__icon { position: absolute; z-index: 2; inset: 50% auto auto 50%; width: 7rem; height: 7rem; padding: 1rem; color: #fff9ee; transform: translate(-50%,-50%) rotate(-4deg); filter: drop-shadow(0 12px 16px rgba(0,0,0,.25)); }
+.solid-health-questionnaire .shq-artwork__spark { position: absolute; z-index: 2; color: rgba(255,255,255,.8); }
+.solid-health-questionnaire .shq-artwork__spark--one { top: 15%; right: 18%; font-size: 1.5rem; }
+.solid-health-questionnaire .shq-artwork__spark--two { bottom: 18%; left: 22%; font-size: 2.5rem; }
+.solid-health-questionnaire .shq-artwork--compact { min-height: 100%; border-radius: 0; }
+.solid-health-questionnaire .shq-artwork--compact .shq-artwork__icon { width: 4.8rem; height: 4.8rem; }
+
+/* Results */
+.solid-health-questionnaire .shq-results { width: min(68rem, 100%); margin: auto; padding: clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 2.5rem); }
+.solid-health-questionnaire .shq-results__hero { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; }
+.solid-health-questionnaire .shq-results__hero h1 { margin: 0 0 .3rem; font-size: clamp(2.4rem, 5vw, 4.5rem); }
+.solid-health-questionnaire .shq-results__hero .shq-disclaimer--top { max-width: 42rem; align-items: flex-start; margin: .75rem 0 0; color: var(--shq-dim); font-size: .72rem; line-height: 1.5; text-align: left; }
+.solid-health-questionnaire .shq-save-state { display: flex; max-width: 24rem; align-items: center; gap: .5rem; padding: .65rem .8rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-sm); color: var(--shq-muted); background: var(--shq-bg-raised); font-size: .72rem; }
+.solid-health-questionnaire .shq-save-state > svg { width: 1rem; flex: 0 0 auto; }
+.solid-health-questionnaire .shq-save-state--failed { align-items: flex-start; border-color: #fecdd3; color: #9f1239; background: #fff1f2; }
+.solid-health-questionnaire .shq-save-state button { padding: 0; border: 0; color: var(--shq-gold); background: transparent; cursor: pointer; font-size: inherit; font-weight: 800; text-decoration: underline; }
+.solid-health-questionnaire .shq-spinner { width: 1rem; height: 1rem; border: 2px solid #cbd5e1; border-top-color: var(--shq-primary); border-radius: 50%; animation: shq-spin .7s linear infinite; }
+.solid-health-questionnaire .shq-results__summary { display: grid; grid-template-columns: minmax(18rem, .9fr) minmax(15rem, .55fr); align-items: center; gap: clamp(1rem, 5vw, 4rem); margin: 1.5rem 0 3rem; padding: 1.5rem; border: 1px solid var(--shq-border); border-radius: 2rem; background: linear-gradient(145deg, #ffffff, #f8fafc); box-shadow: 0 20px 45px rgba(15,23,42,.08); }
+.solid-health-questionnaire .shq-wheel { position: relative; width: min(100%, 29rem); aspect-ratio: 1; margin: auto; }
+.solid-health-questionnaire .shq-wheel > svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.solid-health-questionnaire .shq-wheel__label { fill: #475569; font-size: 10px; font-weight: 700; letter-spacing: .01em; }
+.solid-health-questionnaire .shq-wheel__value { fill: #0f172a; font-size: 10px; font-weight: 850; }
+.solid-health-questionnaire .shq-wheel__heart { position: absolute; inset: 50% auto auto 50%; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; color: var(--shq-gold); transform: translate(-50%,-50%); }
+.solid-health-questionnaire .shq-wheel__heart svg { width: 1.5rem; }
+.solid-health-questionnaire .shq-results__score { padding: 1rem; }
+.solid-health-questionnaire .shq-results__score > span { color: var(--shq-muted); font-size: .8rem; }
+.solid-health-questionnaire .shq-results__score > strong { display: block; margin: .25rem 0; color: var(--shq-gold); font-size: clamp(4.5rem, 9vw, 7rem); font-weight: 620; letter-spacing: -.08em; line-height: .95; }
+.solid-health-questionnaire .shq-results__score > strong small { font-size: .28em; letter-spacing: 0; }
+.solid-health-questionnaire .shq-results__score p { margin-bottom: 1.5rem; color: var(--shq-muted); }
+.solid-health-questionnaire .shq-section-heading { display: flex; align-items: center; gap: .75rem; margin: 2.5rem 0 1rem; }
+.solid-health-questionnaire .shq-section-heading h2 { margin: 0; font-size: clamp(1.55rem, 3vw, 2.1rem); }
+.solid-health-questionnaire .shq-section-heading .shq-eyebrow { margin-bottom: .25rem; }
+.solid-health-questionnaire .shq-section-heading > span { height: 1px; flex: 1; background: linear-gradient(90deg, var(--shq-gold), transparent); }
+.solid-health-questionnaire .shq-results__cards { display: grid; gap: .75rem; }
+.solid-health-questionnaire .shq-result-card { display: grid; grid-template-columns: 8rem minmax(0,1fr); width: 100%; min-height: 7rem; overflow: hidden; padding: 0; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-md); color: var(--shq-text); background: var(--shq-surface); box-shadow: 0 8px 22px rgba(15,23,42,.055); cursor: pointer; text-align: left; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.solid-health-questionnaire .shq-result-card:hover { transform: translateX(4px); border-color: var(--category-ink); box-shadow: 0 12px 28px rgba(15,23,42,.1); }
+.solid-health-questionnaire .shq-result-card--priority { grid-template-columns: minmax(13rem, .43fr) minmax(0, 1fr); min-height: 15rem; border-color: var(--category-ink); }
+.solid-health-questionnaire .shq-result-card__body { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: 1rem 1.25rem; }
+.solid-health-questionnaire .shq-result-card__title { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.solid-health-questionnaire .shq-result-card__title strong { font-size: 1rem; }
+.solid-health-questionnaire .shq-result-card__title svg { width: 1.2rem; }
+.solid-health-questionnaire .shq-status { align-self: flex-start; margin-top: .35rem; padding: .18rem .48rem; border-radius: 999px; font-size: .7rem; font-weight: 800; }
+.solid-health-questionnaire .shq-status--green { color: #166534; background: #dcfce7; }
+.solid-health-questionnaire .shq-status--amber { color: #92400e; background: #fef3c7; }
+.solid-health-questionnaire .shq-status--red { color: #991b1b; background: #fee2e2; }
+.solid-health-questionnaire .shq-score-line { display: flex; justify-content: space-between; gap: 1rem; margin: .55rem 0 .3rem; color: var(--shq-muted); font-size: .7rem; }
+.solid-health-questionnaire .shq-scorebar { display: block; height: .42rem; overflow: hidden; border-radius: 999px; background: #e2e8f0; }
+.solid-health-questionnaire .shq-scorebar > span { display: block; height: 100%; border-radius: inherit; }
+.solid-health-questionnaire .shq-scorebar--green > span { background: var(--shq-green); }
+.solid-health-questionnaire .shq-scorebar--amber > span { background: var(--shq-amber); }
+.solid-health-questionnaire .shq-scorebar--red > span { background: var(--shq-red); }
+.solid-health-questionnaire .shq-result-card__insight { display: grid; gap: .25rem; margin-top: 1rem; padding-top: .8rem; border-top: 1px solid #e2e8f0; }
+.solid-health-questionnaire .shq-result-card__insight strong { color: var(--category-ink); font-size: .82rem; }
+.solid-health-questionnaire .shq-result-card__insight > span { color: var(--shq-muted); font-size: .74rem; line-height: 1.45; }
+.solid-health-questionnaire .shq-disclaimer { display: flex; max-width: 50rem; gap: .55rem; margin: 2rem auto 0; color: var(--shq-dim); font-size: .72rem; text-align: center; }
+.solid-health-questionnaire .shq-disclaimer svg { width: 1rem; flex: 0 0 auto; }
+
+/* Category detail */
+.solid-health-questionnaire .shq-detail { width: min(54rem, 100%); margin: auto; padding: 0 clamp(1rem, 4vw, 2.5rem) 4rem; }
+.solid-health-questionnaire .shq-detail__topbar { display: flex; align-items: center; gap: .75rem; padding: 1.25rem 0; color: var(--shq-muted); font-size: .75rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
+.solid-health-questionnaire .shq-detail > .shq-artwork { min-height: clamp(12rem, 35vw, 20rem); }
+.solid-health-questionnaire .shq-detail__intro { padding: 1.5rem 0 .5rem; }
+.solid-health-questionnaire .shq-detail__category { display: flex; align-items: center; gap: .5rem; color: var(--category-ink); font-weight: 800; }
+.solid-health-questionnaire .shq-detail__category svg { width: 1.35rem; }
+.solid-health-questionnaire .shq-detail__intro h1 { margin: .65rem 0 .5rem; font-size: clamp(2.4rem, 6vw, 4rem); }
+.solid-health-questionnaire .shq-detail__intro > .shq-scorebar { margin: .7rem 0 1.25rem; }
+.solid-health-questionnaire .shq-detail__intro > p { color: var(--shq-muted); font-size: 1rem; line-height: 1.65; }
+.solid-health-questionnaire .shq-detail__lead { padding: .85rem 1rem; border-left: 3px solid var(--category-accent); background: var(--shq-bg-raised); }
+.solid-health-questionnaire .shq-detail__section > p { color: var(--shq-muted); }
+.solid-health-questionnaire .shq-quick-wins { display: grid; gap: .1rem; margin: 0; padding: 1rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-md); background: var(--shq-surface); box-shadow: 0 8px 22px rgba(15,23,42,.05); list-style: none; }
+.solid-health-questionnaire .shq-quick-wins li { display: flex; align-items: center; gap: .8rem; padding: .7rem; border-bottom: 1px solid #e2e8f0; }
+.solid-health-questionnaire .shq-quick-wins li:last-child { border-bottom: 0; }
+.solid-health-questionnaire .shq-quick-wins li > span { display: grid; width: 1.7rem; height: 1.7rem; flex: 0 0 auto; place-items: center; border-radius: .5rem; color: #16120e; background: var(--category-accent); }
+.solid-health-questionnaire .shq-quick-wins svg { width: 1rem; }
+.solid-health-questionnaire .shq-resource-list { display: grid; gap: .5rem; }
+.solid-health-questionnaire .shq-resource-list a { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem 1rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-sm); color: var(--shq-text); background: var(--shq-surface); text-decoration: none; }
+.solid-health-questionnaire .shq-resource-list a:hover { border-color: var(--category-ink); background: #f8fafc; }
+.solid-health-questionnaire .shq-resource-list strong,
+.solid-health-questionnaire .shq-resource-list small { display: block; }
+.solid-health-questionnaire .shq-resource-list small { margin-top: .2rem; color: var(--shq-muted); font-size: .74rem; }
+.solid-health-questionnaire .shq-resource-list a > svg { width: 1.2rem; flex: 0 0 auto; }
+.solid-health-questionnaire .shq-offer-list { display: grid; gap: .55rem; }
+.solid-health-questionnaire .shq-offer-list a { display: grid; grid-template-columns: 5.5rem minmax(0,1fr) auto; min-height: 5.5rem; align-items: stretch; overflow: hidden; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-md); color: var(--shq-text); background: var(--shq-surface); text-decoration: none; }
+.solid-health-questionnaire .shq-offer-list a:hover { border-color: var(--category-ink); background: #f8fafc; }
+.solid-health-questionnaire .shq-offer-list__image { display: grid; place-items: center; color: #17120a; background: var(--category-accent); }
+.solid-health-questionnaire .shq-offer-list__image svg { width: 2.1rem; }
+.solid-health-questionnaire .shq-offer-list a > span:nth-child(2) { display: flex; min-width: 0; flex-direction: column; justify-content: center; padding: .65rem 1rem; }
+.solid-health-questionnaire .shq-offer-list small { color: var(--shq-muted); font-size: .72rem; }
+.solid-health-questionnaire .shq-offer-list strong { margin: .12rem 0; }
+.solid-health-questionnaire .shq-offer-list em { color: var(--category-ink); font-size: .72rem; font-style: normal; }
+.solid-health-questionnaire .shq-offer-list a > svg { width: 1.3rem; align-self: center; margin-right: 1rem; }
+.solid-health-questionnaire .shq-crisis-note { display: flex; gap: .75rem; margin-top: 2.5rem; padding: 1rem; border: 1px solid #fecdd3; border-radius: var(--shq-radius-md); color: #9f1239; background: #fff1f2; }
+.solid-health-questionnaire .shq-crisis-note svg { width: 1.3rem; flex: 0 0 auto; }
+.solid-health-questionnaire .shq-crisis-note p { margin: 0; font-size: .78rem; }
+
+@keyframes shq-boot-progress { from { transform: translateX(-105%); } to { transform: translateX(243%); } }
+@keyframes shq-spin { to { transform: rotate(360deg); } }
+@keyframes shq-reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+@media (max-width: 900px) {
+  .solid-health-questionnaire .shq-login { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-login__story { min-height: 26rem; }
+  .solid-health-questionnaire .shq-login__copy { padding: 4rem 0 1rem; }
+  .solid-health-questionnaire .shq-login__copy h1 { font-size: clamp(2.8rem, 10vw, 5rem); }
+  .solid-health-questionnaire .shq-login__constellation { width: 10rem; height: 10rem; }
+  .solid-health-questionnaire .shq-login__panel { min-height: 35rem; }
+  .solid-health-questionnaire .shq-welcome { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-welcome__visual { order: -1; }
+  .solid-health-questionnaire .shq-welcome__orbit { width: min(28rem, 72vw); }
+  .solid-health-questionnaire .shq-welcome__copy { text-align: center; }
+  .solid-health-questionnaire .shq-welcome__copy h1,
+  .solid-health-questionnaire .shq-welcome__copy > p { margin-right: auto; margin-left: auto; }
+  .solid-health-questionnaire .shq-welcome__actions { justify-content: center; }
+}
+
+@media (max-width: 720px) {
+  .solid-health-questionnaire .shq-standalone-header { position: relative; align-items: flex-start; }
+  .solid-health-questionnaire .shq-standalone-header__brand span { display: none; }
+  .solid-health-questionnaire .shq-standalone-header__pod { display: none; }
+  .solid-health-questionnaire .shq-standalone-footer { flex-wrap: wrap; gap: .5rem 1rem; }
+  .solid-health-questionnaire .shq-onboarding__card > header { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-onboarding__destination { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-onboarding__card > footer { align-items: stretch; flex-direction: column; }
+  .solid-health-questionnaire .shq-onboarding__card > footer > div { margin-left: 0; }
+  .solid-health-questionnaire .shq-onboarding__card > footer .shq-button { flex: 1; }
+  .solid-health-questionnaire .shq-questionnaire__header { min-height: 6rem; border-radius: 0 0 2rem 2rem; }
+  .solid-health-questionnaire--embedded .shq-questionnaire__header { border-radius: .75rem .75rem 0 0; }
+  .solid-health-questionnaire .shq-answers { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-results__hero { flex-direction: column; }
+  .solid-health-questionnaire .shq-results__summary { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-results__score { text-align: center; }
+  .solid-health-questionnaire .shq-result-card--priority { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-result-card--priority > .shq-artwork { min-height: 12rem; }
+}
+
+@media (max-width: 520px) {
+  .solid-health-questionnaire { font-size: 15px; }
+  .solid-health-questionnaire .shq-login__story { min-height: 23rem; padding: 1.5rem; }
+  .solid-health-questionnaire .shq-login__copy h1 { font-size: 2.8rem; }
+  .solid-health-questionnaire .shq-login__constellation { display: none; }
+  .solid-health-questionnaire .shq-login__panel { padding: 4.5rem 1rem 2rem; }
+  .solid-health-questionnaire .shq-provider { grid-template-columns: auto minmax(0,1fr); }
+  .solid-health-questionnaire .shq-provider em { grid-column: 2; justify-self: start; }
+  .solid-health-questionnaire .shq-welcome { padding-top: 3rem; }
+  .solid-health-questionnaire .shq-welcome__orbit { min-width: 17rem; width: 17rem; }
+  .solid-health-questionnaire .shq-welcome__core { width: 4.5rem; height: 4.5rem; border-radius: 1.4rem; }
+  .solid-health-questionnaire .shq-welcome__core svg { width: 2rem; }
+  .solid-health-questionnaire .shq-welcome__category { width: 4rem; min-height: 4rem; border-radius: 1rem; }
+  .solid-health-questionnaire .shq-welcome__category svg { width: 1.3rem; }
+  .solid-health-questionnaire .shq-welcome__category small { display: none; }
+  .solid-health-questionnaire .shq-welcome__copy h1 { font-size: 2.7rem; }
+  .solid-health-questionnaire .shq-welcome__actions { flex-direction: column; }
+  .solid-health-questionnaire .shq-questionnaire__body { padding-top: 2rem; }
+  .solid-health-questionnaire .shq-questionnaire__body h1 { font-size: 1.75rem; }
+  .solid-health-questionnaire .shq-questionnaire__footer { padding-inline: .8rem; }
+  .solid-health-questionnaire .shq-questionnaire__actions { flex-wrap: wrap; }
+  .solid-health-questionnaire .shq-questionnaire__actions .shq-button { min-width: calc(50% - .4rem); flex: 1; padding-inline: .75rem; }
+  .solid-health-questionnaire .shq-questionnaire__dots { justify-content: flex-start; }
+  .solid-health-questionnaire .shq-result-card { grid-template-columns: 6.2rem minmax(0,1fr); }
+  .solid-health-questionnaire .shq-result-card--priority { grid-template-columns: 1fr; }
+  .solid-health-questionnaire .shq-result-card__body { padding: .85rem; }
+  .solid-health-questionnaire .shq-offer-list a { grid-template-columns: 4.5rem minmax(0,1fr) auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solid-health-questionnaire .shq-boot-loader__rail > span {
+    margin: 0 auto;
+    animation: none;
+    opacity: .62;
+    transform: none;
+  }
+  .solid-health-questionnaire *,
+  .solid-health-questionnaire *::before,
+  .solid-health-questionnaire *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

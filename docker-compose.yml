@@ -1,0 +1,10 @@
+services:
+  solid-health-questionnaire:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: son1i/solid-health-questionnaire:local
+    ports:
+      - "3007:3007"
+    restart: unless-stopped
+

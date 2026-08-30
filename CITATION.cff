@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Solid Health Questionnaire"
+version: 0.1.1
+date-released: 2026-08-30
+license: Apache-2.0
+authors:
+  - family-names: "Hoelke"
+repository-code: "https://github.com/hoelk-f/solid-health-questionnaire"
+

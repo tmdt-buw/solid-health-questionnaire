@@ -1,0 +1,23 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix shq: <https://raw.githubusercontent.com/hoelk-f/solid-health-questionnaire/main/public/vocab.ttl#> .
+
+shq: a owl:Ontology ;
+  rdfs:label "Solid Health Questionnaire vocabulary"@en .
+
+shq:HealthQuestionnaireAssessment a rdfs:Class ;
+  rdfs:label "Health questionnaire assessment"@en .
+
+shq:questionnaireVersion a rdf:Property .
+shq:achievedScore a rdf:Property .
+shq:maximumScore a rdf:Property .
+shq:percentage a rdf:Property .
+shq:trafficLight a rdf:Property .
+shq:categoryId a rdf:Property .
+shq:questionId a rdf:Property .
+shq:optionId a rdf:Property .
+shq:hasCategoryScore a rdf:Property .
+shq:hasQuestion a rdf:Property .
+shq:hasAnswer a rdf:Property .
+shq:answersQuestion a rdf:Property .
