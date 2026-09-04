@@ -14,6 +14,7 @@ import {
   overwriteFile,
   saveSolidDatasetAt,
   setThing,
+  solidDatasetAsTurtle,
   type SolidDataset,
 } from "@inrupt/solid-client";
 import {
@@ -280,13 +281,80 @@ export function buildAssessmentDataset(
   return setThing(dataset, assessment.build());
 }
 
-async function saveAssessmentAt(
+function assessmentResultsMatch(
+  stored: AssessmentResult,
+  expected: AssessmentResult
+): boolean {
+  if (
+    stored.id !== expected.id ||
+    stored.questionnaireVersion !== expected.questionnaireVersion ||
+    stored.completedAt !== expected.completedAt ||
+    stored.webId !== expected.webId ||
+    stored.achieved !== expected.achieved ||
+    stored.maximum !== expected.maximum ||
+    stored.percentage !== expected.percentage ||
+    stored.categories.length !== expected.categories.length
+  ) {
+    return false;
+  }
+
+  const answersMatch = QUESTIONS.every(
+    (question) => stored.answers[question.id] === expected.answers[question.id]
+  );
+  const categoriesMatch = CATEGORY_ORDER.every((category) => {
+    const storedCategory = stored.categories.find(
+      (entry) => entry.category === category
+    );
+    const expectedCategory = expected.categories.find(
+      (entry) => entry.category === category
+    );
+    if (!storedCategory || !expectedCategory) return false;
+    return (
+      storedCategory.achieved === expectedCategory.achieved &&
+      storedCategory.maximum === expectedCategory.maximum &&
+      storedCategory.percentage === expectedCategory.percentage &&
+      storedCategory.status === expectedCategory.status
+    );
+  });
+  return answersMatch && categoriesMatch;
+}
+
+async function saveImmutableAssessmentAt(
   url: string,
   result: AssessmentResult,
   fetcher: SolidFetch
 ): Promise<void> {
   await hardenExistingResource(url, result.webId, fetcher);
-  await saveSolidDatasetAt(url, buildAssessmentDataset(url, result), { fetch: fetcher });
+  try {
+    await saveSolidDatasetAt(url, buildAssessmentDataset(url, result), { fetch: fetcher });
+  } catch (error) {
+    if (errorStatus(error) !== 409 && errorStatus(error) !== 412) throw error;
+    const stored = parseAssessmentDataset(
+      await getSolidDataset(url, { fetch: fetcher }),
+      url,
+      result.webId
+    );
+    if (!assessmentResultsMatch(stored, result)) {
+      throw new AssessmentValidationError(
+        "An immutable assessment with this identifier already contains different data.",
+        error
+      );
+    }
+  }
+  await setOwnerOnlyResourceAccess(url, result.webId, fetcher);
+}
+
+async function overwriteLatestAssessmentAt(
+  url: string,
+  result: AssessmentResult,
+  fetcher: SolidFetch
+): Promise<void> {
+  await hardenExistingResource(url, result.webId, fetcher);
+  const turtle = await solidDatasetAsTurtle(buildAssessmentDataset(url, result));
+  await overwriteFile(url, new Blob([turtle], { type: "text/turtle" }), {
+    contentType: "text/turtle",
+    fetch: fetcher,
+  });
   await setOwnerOnlyResourceAccess(url, result.webId, fetcher);
 }
 
@@ -297,8 +365,8 @@ export async function saveAssessment(
 ): Promise<void> {
   await ensurePrivateStorage(podRoot, result.webId, fetcher);
   const urls = storageUrls(podRoot);
-  await saveAssessmentAt(urls.assessment(result.id), result, fetcher);
-  await saveAssessmentAt(urls.latest, result, fetcher);
+  await saveImmutableAssessmentAt(urls.assessment(result.id), result, fetcher);
+  await overwriteLatestAssessmentAt(urls.latest, result, fetcher);
 }
 
 function requiredInteger(value: number | null, field: string): number {

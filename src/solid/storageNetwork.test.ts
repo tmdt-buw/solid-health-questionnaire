@@ -30,6 +30,7 @@ vi.mock("./ownerAcl", () => ({
 
 import {
   AssessmentValidationError,
+  buildAssessmentDataset,
   loadLatestAssessment,
   saveAssessment,
   saveOnboarding,
@@ -50,6 +51,14 @@ const result = createAssessmentResult({
 });
 
 const event = (kind: string, url: string) => `${kind}:${url}`;
+
+const readBlobText = (blob: Blob): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.addEventListener("load", () => resolve(String(reader.result)));
+    reader.addEventListener("error", () => reject(reader.error));
+    reader.readAsText(blob);
+  });
 
 describe("private Pod write ordering", () => {
   beforeEach(() => {
@@ -86,22 +95,128 @@ describe("private Pod write ordering", () => {
     });
   });
 
-  it("hardens existing assessment resources immediately before and after each write", async () => {
-    await saveAssessment(podRoot, result, vi.fn() as unknown as typeof fetch);
+  it("creates immutable history and overwrites latest between owner-only ACL checks", async () => {
+    const fetcher = vi.fn() as unknown as typeof fetch;
+    await saveAssessment(podRoot, result, fetcher);
 
-    for (const url of [urls.assessment(result.id), urls.latest]) {
-      const saveIndex = storageMocks.events.indexOf(event("save", url));
-      expect(saveIndex).toBeGreaterThan(0);
-      expect(storageMocks.events[saveIndex - 1]).toBe(event("acl", url));
-      expect(storageMocks.events[saveIndex + 1]).toBe(event("acl", url));
-    }
+    const assessmentUrl = urls.assessment(result.id);
+    const assessmentSaveIndex = storageMocks.events.indexOf(
+      event("save", assessmentUrl)
+    );
+    expect(assessmentSaveIndex).toBeGreaterThan(0);
+    expect(storageMocks.events[assessmentSaveIndex - 1]).toBe(
+      event("acl", assessmentUrl)
+    );
+    expect(storageMocks.events[assessmentSaveIndex + 1]).toBe(
+      event("acl", assessmentUrl)
+    );
+
+    const latestOverwriteIndex = storageMocks.events.indexOf(
+      event("overwrite", urls.latest)
+    );
+    expect(latestOverwriteIndex).toBeGreaterThan(assessmentSaveIndex);
+    expect(storageMocks.events[latestOverwriteIndex - 1]).toBe(
+      event("acl", urls.latest)
+    );
+    expect(storageMocks.events[latestOverwriteIndex + 1]).toBe(
+      event("acl", urls.latest)
+    );
+    expect(storageMocks.saveSolidDatasetAt).not.toHaveBeenCalledWith(
+      urls.latest,
+      expect.anything(),
+      expect.anything()
+    );
+    expect(storageMocks.overwriteFile).toHaveBeenCalledWith(
+      urls.latest,
+      expect.any(Blob),
+      { contentType: "text/turtle", fetch: fetcher }
+    );
+
+    const latestBlob = storageMocks.overwriteFile.mock.calls.find(
+      ([url]) => url === urls.latest
+    )?.[1] as Blob;
+    expect(latestBlob.type).toBe("text/turtle");
+    expect(await readBlobText(latestBlob)).toContain(result.id);
+
     expect(storageMocks.events.indexOf(event("acl", `${urls.app}?default`))).toBeLessThan(
-      storageMocks.events.indexOf(event("save", urls.assessment(result.id)))
+      assessmentSaveIndex
     );
     expect(
       storageMocks.events.indexOf(event("acl", `${urls.assessments}?default`))
-    ).toBeLessThan(storageMocks.events.indexOf(event("save", urls.assessment(result.id))));
+    ).toBeLessThan(assessmentSaveIndex);
     expect(storageMocks.createContainerAt).not.toHaveBeenCalled();
+  });
+
+  it("overwrites the same latest URL for subsequent assessments", async () => {
+    const fetcher = vi.fn() as unknown as typeof fetch;
+    const nextResult = createAssessmentResult({
+      answers,
+      webId: ownerWebId,
+      id: "assessment-order-2",
+      completedAt: "2026-08-28T13:30:00.000Z",
+    });
+
+    await saveAssessment(podRoot, result, fetcher);
+    await saveAssessment(podRoot, nextResult, fetcher);
+
+    expect(storageMocks.saveSolidDatasetAt).toHaveBeenCalledTimes(2);
+    expect(storageMocks.saveSolidDatasetAt.mock.calls.map(([url]) => url)).toEqual([
+      urls.assessment(result.id),
+      urls.assessment(nextResult.id),
+    ]);
+    expect(storageMocks.overwriteFile).toHaveBeenCalledTimes(2);
+    expect(storageMocks.overwriteFile.mock.calls.map(([url]) => url)).toEqual([
+      urls.latest,
+      urls.latest,
+    ]);
+
+    const latestBlob = storageMocks.overwriteFile.mock.calls[1][1] as Blob;
+    expect(await readBlobText(latestBlob)).toContain(nextResult.id);
+  });
+
+  it("reaches latest on retry when the same immutable history already exists", async () => {
+    const fetcher = vi.fn() as unknown as typeof fetch;
+    const assessmentUrl = urls.assessment(result.id);
+    storageMocks.saveSolidDatasetAt.mockImplementationOnce(async (url: string) => {
+      storageMocks.events.push(event("save", url));
+      throw Object.assign(new Error("already exists"), { statusCode: 412 });
+    });
+    storageMocks.getSolidDataset.mockResolvedValue(
+      buildAssessmentDataset(assessmentUrl, result)
+    );
+
+    await saveAssessment(podRoot, result, fetcher);
+
+    expect(storageMocks.getSolidDataset).toHaveBeenCalledWith(assessmentUrl, {
+      fetch: fetcher,
+    });
+    expect(storageMocks.overwriteFile).toHaveBeenCalledWith(
+      urls.latest,
+      expect.any(Blob),
+      { contentType: "text/turtle", fetch: fetcher }
+    );
+  });
+
+  it("never overwrites immutable history when its identifier has different data", async () => {
+    const fetcher = vi.fn() as unknown as typeof fetch;
+    const assessmentUrl = urls.assessment(result.id);
+    const conflictingResult = createAssessmentResult({
+      answers,
+      webId: ownerWebId,
+      id: "different-assessment",
+      completedAt: result.completedAt,
+    });
+    storageMocks.saveSolidDatasetAt.mockRejectedValueOnce(
+      Object.assign(new Error("already exists"), { statusCode: 412 })
+    );
+    storageMocks.getSolidDataset.mockResolvedValue(
+      buildAssessmentDataset(assessmentUrl, conflictingResult)
+    );
+
+    await expect(saveAssessment(podRoot, result, fetcher)).rejects.toThrow(
+      AssessmentValidationError
+    );
+    expect(storageMocks.overwriteFile).not.toHaveBeenCalled();
   });
 
   it("establishes owner-only container defaults before creating new child resources", async () => {
