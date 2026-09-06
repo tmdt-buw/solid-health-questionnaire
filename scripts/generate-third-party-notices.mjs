@@ -12,6 +12,7 @@ import { dirname, join, parse, resolve } from "node:path";
 const projectRoot = resolve(import.meta.dirname, "..");
 const requireFrom = (directory) => createRequire(join(directory, "package.json"));
 const bundledRoots = [
+  "@fortawesome/free-solid-svg-icons",
   "react",
   "react-dom",
   "@inrupt/solid-client",
