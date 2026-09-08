@@ -487,6 +487,7 @@
 .solid-health-questionnaire .shq-onboarding__item-copy strong { display: flex; align-items: baseline; gap: .6rem; font-size: .9rem; }
 .solid-health-questionnaire .shq-onboarding__item-copy strong em { color: var(--shq-gold); font-size: .62rem; font-style: normal; letter-spacing: .1em; }
 .solid-health-questionnaire .shq-onboarding__item-copy small { display: block; margin-top: .2rem; color: var(--shq-muted); font-size: .74rem; line-height: 1.45; }
+.solid-health-questionnaire .shq-onboarding__privacy { margin: 1.5rem 0 0; color: var(--shq-muted); font-size: .85rem; line-height: 1.6; }
 .solid-health-questionnaire .shq-onboarding__card > footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
 .solid-health-questionnaire .shq-onboarding__card > footer p { margin: 0; color: #9a3412; font-size: .74rem; }
 .solid-health-questionnaire .shq-onboarding__card > footer > div { display: flex; gap: .65rem; margin-left: auto; }

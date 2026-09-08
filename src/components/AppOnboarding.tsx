@@ -39,6 +39,7 @@ export default function AppOnboarding({
         controlText: "Die App nutzt nur deine aktive Solid-Session und gibt keine Ergebnisse öffentlich frei.",
         standaloneTitle: "Eigenständige Anmeldung",
         standaloneText: "In der Standalone-Variante verwaltet diese App ihren eigenen OIDC-Login. Im Embed übernimmt der Dataspace Manager die Session.",
+        privacyText: "Ich habe die Datenschutzerklärung zur Kenntnis genommen. Informationen zur Verarbeitung meiner personenbezogenen Daten finde ich in der Datenschutzerklärung.",
         destination: "Privater Speicherort",
         required: "Bestätige alle Punkte, um den privaten App-Bereich anzulegen.",
         submit: "Zustimmen und privaten Bereich anlegen",
@@ -56,6 +57,7 @@ export default function AppOnboarding({
         controlText: "The app only uses your active Solid session and never makes results public.",
         standaloneTitle: "Independent login",
         standaloneText: "The standalone version manages its own OIDC login. The embedded version reuses the Dataspace Manager session.",
+        privacyText: "I have taken note of the privacy policy. Information about the processing of my personal data can be found in the privacy policy.",
         destination: "Private storage location",
         required: "Confirm every point to create the private app space.",
         submit: "Accept and create private space",
@@ -108,6 +110,7 @@ export default function AppOnboarding({
             </label>
           ))}
         </div>
+        <p className="shq-onboarding__privacy">{copy.privacyText}</p>
         {error && <p className="shq-form-error" role="alert">{error}</p>}
         <footer>
           <p aria-live="polite">{complete ? "" : copy.required}</p>
