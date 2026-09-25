@@ -1,6 +1,6 @@
-# Solid Health Questionnaire
+# Health Questionnaire
 
-Solid Health Questionnaire is a private-by-design self-assessment for the Solid Dataspace. It guides a user through 18 questions across movement, nutrition, mental health, sleep and social environment, calculates category and overall scores, and stores every completed assessment in that user's personal Solid Pod.
+Health Questionnaire is a private-by-design self-assessment for the Solid Dataspace. It guides a user through 18 questions across movement, nutrition, mental health, sleep and social environment, calculates category and overall scores, and stores every completed assessment in that user's personal Solid Pod.
 
 The application is an orientation tool, not a medical diagnosis. It does not replace medical advice. In an emergency in Germany, call `112`.
 

@@ -4,7 +4,7 @@
 @prefix shq: <https://raw.githubusercontent.com/hoelk-f/solid-health-questionnaire/main/public/vocab.ttl#> .
 
 shq: a owl:Ontology ;
-  rdfs:label "Solid Health Questionnaire vocabulary"@en .
+  rdfs:label "Health Questionnaire vocabulary"@en .
 
 shq:HealthQuestionnaireAssessment a rdfs:Class ;
   rdfs:label "Health questionnaire assessment"@en .

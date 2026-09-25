@@ -13,7 +13,7 @@ describe("QuestionnaireBootLoader", () => {
     expect(shell).toHaveClass("solid-health-questionnaire--loading");
     expect(shell).toHaveClass("solid-health-questionnaire--standalone");
     expect(screen.getByRole("main")).toHaveAttribute("aria-busy", "true");
-    expect(screen.getByRole("heading", { name: "Solid Health Questionnaire" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Health Questionnaire" })).toBeInTheDocument();
     expect(screen.getAllByRole("status")).toHaveLength(1);
     expect(screen.getByRole("status")).toHaveTextContent(
       "Loading your personal health space …"

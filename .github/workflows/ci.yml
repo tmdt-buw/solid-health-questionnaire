@@ -1,4 +1,4 @@
-name: Solid Health Questionnaire CI and Release
+name: Health Questionnaire CI and Release
 
 on:
   push:

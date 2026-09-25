@@ -5,9 +5,9 @@ export const normalizeLanguage = (value?: string | null): AppLanguage =>
 
 export const UI_COPY = {
   de: {
-    appName: "Solid Gesundheitsfragebogen",
+    appName: "Gesundheitsfragebogen",
     shortName: "Rundum gesund",
-    metaDescription: "Solid Gesundheitsfragebogen – dein persönlicher Gesundheitsüberblick, sicher in deinem Solid Pod.",
+    metaDescription: "Gesundheitsfragebogen – dein persönlicher Gesundheitsüberblick, sicher in deinem Solid Pod.",
     loading: "Dein persönlicher Gesundheitsbereich wird geladen …",
     retry: "Erneut versuchen",
     logout: "Abmelden",
@@ -39,9 +39,9 @@ export const UI_COPY = {
     noPod: "Dein persönlicher Solid Pod konnte nicht ermittelt werden. Es werden keine Gesundheitsdaten lokal als Ersatz gespeichert.",
   },
   en: {
-    appName: "Solid Health Questionnaire",
+    appName: "Health Questionnaire",
     shortName: "Whole-health check",
-    metaDescription: "Solid Health Questionnaire – your personal health overview, secured in your Solid Pod.",
+    metaDescription: "Health Questionnaire – your personal health overview, secured in your Solid Pod.",
     loading: "Loading your personal health space …",
     retry: "Try again",
     logout: "Log out",

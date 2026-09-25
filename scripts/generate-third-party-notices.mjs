@@ -115,7 +115,7 @@ const sections = [...packages.values()]
   });
 
 const output = [
-  "Solid Health Questionnaire - Third-Party Notices",
+  "Health Questionnaire - Third-Party Notices",
   "",
   "Generated from the exact installed dependency graph used by the standalone bundle.",
   "The following notices and license texts belong to their respective projects.",
