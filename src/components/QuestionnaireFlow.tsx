@@ -121,33 +121,35 @@ export default function QuestionnaireFlow({
       </div>
 
       <div className="shq-questionnaire__body">
-        <div className="shq-questionnaire__category">
-          <span><Icon name={category.icon} /></span>
-          <strong>{category.label[language]}</strong>
-          <button type="button" onClick={() => setShowHint((current) => !current)} aria-expanded={showHint} aria-label={copy.info}><Icon name="info" /></button>
+        <div className={`shq-questionnaire__content${question.id === "movement-active-days" ? " shq-questionnaire__content--wide" : ""}`}>
+          <div className="shq-questionnaire__category">
+            <span><Icon name={category.icon} /></span>
+            <strong>{category.label[language]}</strong>
+            <button type="button" onClick={() => setShowHint((current) => !current)} aria-expanded={showHint} aria-label={copy.info}><Icon name="info" /></button>
+          </div>
+          {showHint && <p className="shq-questionnaire__hint" role="note">{copy.infoText}</p>}
+          <h1 id="shq-question-title" ref={headingRef} tabIndex={-1}>{question.prompt[language]}</h1>
+          <fieldset className="shq-answers">
+            <legend className="shq-sr-only">{question.prompt[language]}</legend>
+            {question.options.map((answer) => (
+              <label key={answer.id} className={selected === answer.id ? "is-selected" : ""}>
+                <input
+                  type="radio"
+                  name={question.id}
+                  value={answer.id}
+                  checked={selected === answer.id}
+                  onChange={() => {
+                    setAnswers((current) => ({ ...current, [question.id]: answer.id }));
+                    setValidationVisible(false);
+                  }}
+                />
+                <span className="shq-answers__control" aria-hidden="true"><Icon name="check" /></span>
+                <span>{answer.label[language]}</span>
+              </label>
+            ))}
+          </fieldset>
+          {validationVisible && <p className="shq-form-error" role="alert">{copy.required}</p>}
         </div>
-        {showHint && <p className="shq-questionnaire__hint" role="note">{copy.infoText}</p>}
-        <h1 id="shq-question-title" ref={headingRef} tabIndex={-1}>{question.prompt[language]}</h1>
-        <fieldset className="shq-answers">
-          <legend className="shq-sr-only">{question.prompt[language]}</legend>
-          {question.options.map((answer) => (
-            <label key={answer.id} className={selected === answer.id ? "is-selected" : ""}>
-              <input
-                type="radio"
-                name={question.id}
-                value={answer.id}
-                checked={selected === answer.id}
-                onChange={() => {
-                  setAnswers((current) => ({ ...current, [question.id]: answer.id }));
-                  setValidationVisible(false);
-                }}
-              />
-              <span className="shq-answers__control" aria-hidden="true"><Icon name="check" /></span>
-              <span>{answer.label[language]}</span>
-            </label>
-          ))}
-        </fieldset>
-        {validationVisible && <p className="shq-form-error" role="alert">{copy.required}</p>}
       </div>
 
       <footer className="shq-questionnaire__footer">

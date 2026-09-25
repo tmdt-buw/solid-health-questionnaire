@@ -535,7 +535,9 @@
 .solid-health-questionnaire .shq-questionnaire__progress-copy { margin-top: .2rem; font-size: .76rem; font-weight: 700; opacity: .7; }
 .solid-health-questionnaire .shq-questionnaire__progress { height: .3rem; margin-top: -1px; background: #e2e8f0; }
 .solid-health-questionnaire .shq-questionnaire__progress > span { display: block; height: 100%; border-radius: 0 999px 999px 0; background: var(--category-accent); transition: width .35s ease; }
-.solid-health-questionnaire .shq-questionnaire__body { width: min(59rem, 100%); min-height: 0; flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem); animation: shq-reveal .35s ease both; }
+.solid-health-questionnaire .shq-questionnaire__body { width: 100%; min-width: 0; min-height: 0; flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+.solid-health-questionnaire .shq-questionnaire__content { width: min(59rem, 100%); min-height: 100%; margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 3rem); animation: shq-reveal .35s ease both; }
+.solid-health-questionnaire .shq-questionnaire__content--wide { width: min(76rem, 100%); }
 .solid-health-questionnaire .shq-questionnaire__category { display: flex; align-items: center; gap: .6rem; margin-bottom: 1.5rem; color: var(--category-ink); }
 .solid-health-questionnaire .shq-questionnaire__category > span { display: grid; width: 2.25rem; height: 2.25rem; place-items: center; border-radius: .65rem; background: color-mix(in srgb, var(--category-accent) 18%, transparent); }
 .solid-health-questionnaire .shq-questionnaire__category svg { width: 1.25rem; }
@@ -544,6 +546,7 @@
 .solid-health-questionnaire .shq-questionnaire__category button:hover { background: color-mix(in srgb, var(--category-accent) 12%, #ffffff); }
 .solid-health-questionnaire .shq-questionnaire__hint { margin: -1rem 0 1.25rem; padding: .75rem 1rem; border-left: 2px solid var(--category-accent); color: var(--shq-muted); background: var(--shq-bg-raised); font-size: .78rem; }
 .solid-health-questionnaire .shq-questionnaire__body h1 { max-width: 25ch; margin-bottom: 2.2rem; font-size: clamp(1.75rem, 4vw, 3.3rem); line-height: 1.18; }
+.solid-health-questionnaire .shq-questionnaire__content--wide h1 { max-width: 34ch; }
 .solid-health-questionnaire .shq-answers { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .7rem; margin: 0; padding: .85rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-lg); background: var(--shq-bg-raised); }
 .solid-health-questionnaire .shq-answers label { display: flex; min-height: 4rem; align-items: center; gap: .8rem; padding: .8rem 1rem; border: 1px solid var(--shq-border); border-radius: var(--shq-radius-md); color: var(--shq-text); background: var(--shq-surface); cursor: pointer; transition: transform .16s ease, border-color .16s ease, background .16s ease; }
 .solid-health-questionnaire .shq-answers label:hover { transform: translateY(-2px); border-color: #94a3b8; box-shadow: 0 8px 18px rgba(15,23,42,.07); }
