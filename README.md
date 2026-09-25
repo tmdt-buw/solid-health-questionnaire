@@ -53,7 +53,7 @@ After explicit app onboarding, the application provisions and hardens this WAC-p
     └── {assessmentId}.ttl
 ```
 
-Every container gets an explicit owner-only resource ACL and owner-only default ACL. Every result and onboarding resource gets an owner-only resource ACL. Existing known resources are hardened before they are overwritten and verified again after writing. Existing public, group, agent, origin and default rules are replaced and the resulting ACL is read back and verified. The target deployment follows the Community Solid Server/WebACL setup already used by Solid Tours; ACP is not treated as interchangeable.
+Every container gets an explicit owner-only resource ACL and owner-only default ACL. Every result and onboarding resource gets an owner-only resource ACL. Existing known resources are hardened before they are overwritten and verified again after writing. Existing public, group, agent, origin and default rules are replaced and the resulting ACL is read back and verified. The target deployment follows the Community Solid Server/WebACL setup already used by City Tours; ACP is not treated as interchangeable.
 
 Each immutable assessment contains:
 

@@ -21,7 +21,7 @@ describe("questionnaire language selection", () => {
 
   it("provides the personal app loading copy in both languages", () => {
     expect(UI_COPY.en.appName).toBe("Solid Health Questionnaire");
-    expect(UI_COPY.de.appName).toBe("Solid Health Questionnaire");
+    expect(UI_COPY.de.appName).toBe("Solid Gesundheitsfragebogen");
     expect(UI_COPY.en.loading).toBe("Loading your personal health space …");
     expect(UI_COPY.de.loading).toBe(
       "Dein persönlicher Gesundheitsbereich wird geladen …"

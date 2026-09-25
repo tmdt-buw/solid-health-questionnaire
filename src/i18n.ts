@@ -5,9 +5,9 @@ export const normalizeLanguage = (value?: string | null): AppLanguage =>
 
 export const UI_COPY = {
   de: {
-    appName: "Solid Health Questionnaire",
+    appName: "Solid Gesundheitsfragebogen",
     shortName: "Rundum gesund",
-    metaDescription: "Solid Health Questionnaire – dein persönlicher Gesundheitsüberblick, sicher in deinem Solid Pod.",
+    metaDescription: "Solid Gesundheitsfragebogen – dein persönlicher Gesundheitsüberblick, sicher in deinem Solid Pod.",
     loading: "Dein persönlicher Gesundheitsbereich wird geladen …",
     retry: "Erneut versuchen",
     logout: "Abmelden",

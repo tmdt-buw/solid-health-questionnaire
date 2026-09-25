@@ -133,7 +133,7 @@ export default function App({
 
   useEffect(() => {
     if (embedded) return;
-    document.title = "Solid Health Questionnaire";
+    document.title = UI_COPY[language].appName;
     document.documentElement.lang = language;
     document
       .querySelector<HTMLMetaElement>('meta[name="description"]')
@@ -310,7 +310,7 @@ export default function App({
       await standaloneSession.login({
         oidcIssuer: issuer,
         redirectUrl: `${window.location.origin}/solid-health-questionnaire/`,
-        clientName: "Solid Health Questionnaire",
+        clientName: UI_COPY[language].appName,
       });
     } catch (reason) {
       setErrorKind(classifyUserFacingError(reason));
@@ -503,7 +503,7 @@ export default function App({
     <div className={`solid-health-questionnaire solid-health-questionnaire--${embedded ? "embedded" : "standalone"}`} lang={language}>
       {!embedded && bootState !== "unauthenticated" && (
         <header className="shq-standalone-header">
-          <a href="/solid-health-questionnaire/" className="shq-standalone-header__brand"><Icon name="heart" /><span>Solid Health Questionnaire</span></a>
+          <a href="/solid-health-questionnaire/" className="shq-standalone-header__brand"><Icon name="heart" /><span>{UI_COPY[language].appName}</span></a>
           <div>
             {webId && <span className="shq-standalone-header__pod"><Icon name="pod" /> {language === "de" ? "Mein Pod" : "My Pod"}</span>}
             <div className="shq-language" role="group" aria-label={language === "de" ? "Sprache" : "Language"}>
@@ -517,7 +517,7 @@ export default function App({
       <div className="shq-app-stage">{content}</div>
       {!embedded && bootState !== "unauthenticated" && (
         <footer className="shq-standalone-footer">
-          <span>© 2026 TMDT</span><span>Solid Health Questionnaire {healthQuestionnaireVersion}</span><span><Icon name="lock" /> {UI_COPY[language].podFirst}</span>
+          <span>© 2026 TMDT</span><span>{UI_COPY[language].appName} {healthQuestionnaireVersion}</span><span><Icon name="lock" /> {UI_COPY[language].podFirst}</span>
           <span className="shq-standalone-footer__legal"><a href="/solid-health-questionnaire/LICENSE.txt">{UI_COPY[language].license}</a><a href="/solid-health-questionnaire/NOTICE.txt">{UI_COPY[language].notice}</a><a href="/solid-health-questionnaire/THIRD_PARTY_NOTICES.txt">{UI_COPY[language].thirdPartyLicenses}</a></span>
         </footer>
       )}

@@ -95,7 +95,7 @@ export default function LoginScreen({
   return (
     <main className="shq-login">
       <section className="shq-login__story" aria-labelledby="shq-login-title">
-        <div className="shq-login__brand"><Icon name="heart" /> Solid Health Questionnaire</div>
+        <div className="shq-login__brand"><Icon name="heart" /> {sharedCopy.appName}</div>
         <div className="shq-login__copy">
           <span className="shq-eyebrow">{copy.eyebrow}</span>
           <h1 id="shq-login-title" ref={headingRef} tabIndex={-1}>{copy.title}</h1>
