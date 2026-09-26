@@ -25,6 +25,6 @@ describe("Solid issuer validation", () => {
     expect(screen.getByRole("button", { name: "Clear provider entry" })).toBeInTheDocument();
 
     rerender(<LoginScreen language="de" {...props} />);
-    expect(screen.getByRole("button", { name: "Provider-Eingabe löschen" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Anbieter-Eingabe löschen" })).toBeInTheDocument();
   });
 });

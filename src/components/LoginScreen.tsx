@@ -71,12 +71,12 @@ export default function LoginScreen({
         eyebrow: "DEIN CHECK. DEINE DATEN.",
         title: "Gesundheit beginnt mit einem ehrlichen Blick.",
         body: "Beantworte 18 kurze Fragen und speichere deinen persönlichen Überblick ausschließlich in deinem Solid Pod.",
-        providers: "Solid Provider auswählen",
-        custom: "Anderen Provider verwenden",
+        providers: "Solid-Anbieter auswählen",
+        custom: "Anderen Anbieter verwenden",
         customPlaceholder: "https://dein-provider.example",
         invalid: "Gib eine gültige HTTPS-Issuer-URL ein.",
         submit: "Sicher mit Solid anmelden",
-        privacy: "Die App erhält keinen zentralen Account und betreibt keine Gesundheitsdatenbank.",
+        privacy: "Die App verwendet kein zentrales Benutzerkonto und betreibt keine Gesundheitsdatenbank.",
         recommended: "Empfohlen",
       }
     : {

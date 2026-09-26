@@ -16,7 +16,7 @@ describe("questionnaire language selection", () => {
     expect(UI_COPY.en.thirdPartyLicenses).toBe("Third-party licenses");
     expect(UI_COPY.de.thirdPartyLicenses).toBe("Drittanbieter-Lizenzen");
     expect(UI_COPY.en.clearProvider).toBe("Clear provider entry");
-    expect(UI_COPY.de.clearProvider).toBe("Provider-Eingabe löschen");
+    expect(UI_COPY.de.clearProvider).toBe("Anbieter-Eingabe löschen");
   });
 
   it("provides the personal app loading copy in both languages", () => {

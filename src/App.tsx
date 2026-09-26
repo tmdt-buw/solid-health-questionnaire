@@ -500,7 +500,7 @@ export default function App({
   })();
 
   return (
-    <div className={`solid-health-questionnaire solid-health-questionnaire--${embedded ? "embedded" : "standalone"}`} lang={language}>
+    <div className={`solid-health-questionnaire solid-health-questionnaire--${embedded ? "embedded" : "standalone"}`} lang={language} translate="no">
       {!embedded && bootState !== "unauthenticated" && (
         <header className="shq-standalone-header">
           <a href="/solid-health-questionnaire/" className="shq-standalone-header__brand"><Icon name="heart" /><span>{UI_COPY[language].appName}</span></a>
