@@ -1,1 +1,1 @@
-export const healthQuestionnaireVersion = "0.1.7";
+export const healthQuestionnaireVersion = "0.1.8";
