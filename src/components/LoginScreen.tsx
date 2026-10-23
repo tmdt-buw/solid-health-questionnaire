@@ -1,3 +1,4 @@
+import LoginParticleCloud from "../standalone/LoginParticleCloud";
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { UI_COPY } from "../i18n";
 import type { AppLanguage } from "../types";
@@ -93,25 +94,20 @@ export default function LoginScreen({
       };
 
   return (
-    <main className="shq-login">
-      <section className="shq-login__story" aria-labelledby="shq-login-title">
-        <div className="shq-login__brand"><Icon name="heart" /> {sharedCopy.appName}</div>
+    <main className="shq-login" data-standalone-login><div data-standalone-login-card>
+      <section className="shq-login__story" data-standalone-login-heading aria-labelledby="shq-login-title">
+        <div className="shq-login__brand" aria-hidden="true"><Icon name="heart" /></div>
         <div className="shq-login__copy">
-          <span className="shq-eyebrow">{copy.eyebrow}</span>
-          <h1 id="shq-login-title" ref={headingRef} tabIndex={-1}>{copy.title}</h1>
+
+          <h1 id="shq-login-title" ref={headingRef} tabIndex={-1}>{sharedCopy.appName}</h1>
           <p>{copy.body}</p>
-        </div>
-        <div className="shq-login__constellation" aria-hidden="true">
-          <span className="is-one" /><span className="is-two" /><span className="is-three" />
-          <Icon name="heart" />
         </div>
       </section>
 
-      <section className="shq-login__panel" aria-label={copy.providers}>
-        <div className="shq-language" role="group" aria-label={language === "de" ? "Sprache" : "Language"}>
-          <button type="button" aria-pressed={language === "de"} className={language === "de" ? "is-active" : ""} onClick={() => onLanguageChange("de")}>DE</button>
-          <button type="button" aria-pressed={language === "en"} className={language === "en" ? "is-active" : ""} onClick={() => onLanguageChange("en")}>EN</button>
-        </div>
+      <LoginParticleCloud label={sharedCopy.appName} />
+
+      <section className="shq-login__panel" data-standalone-login-form aria-label={copy.providers}>
+
         <div className="shq-login__panel-heading">
           <Icon name="lock" />
           <div><span>Solid OIDC</span><h2>{copy.providers}</h2></div>
@@ -155,12 +151,15 @@ export default function LoginScreen({
           </label>
           {invalid && <p className="shq-form-error" role="alert">{copy.invalid}</p>}
           {error && !invalid && <p className="shq-form-error" role="alert">{error}</p>}
+          <div data-standalone-login-actions>
+            <label className="language-select shq-login-language"><select aria-label={language === "de" ? "Sprache" : "Language"} value={language} onChange={event => onLanguageChange(event.target.value === "de" ? "de" : "en")}><option value="en">{language === "de" ? "Englisch" : "English"}</option><option value="de">Deutsch</option></select></label>
           <button className="shq-button shq-button--primary shq-button--full" type="submit" disabled={!issuer || busy}>
             <Icon name="lock" /> {busy ? "…" : copy.submit}
           </button>
+          </div>
         </form>
         <p className="shq-login__privacy"><Icon name="pod" /> {copy.privacy}</p>
       </section>
-    </main>
+    </div></main>
   );
 }

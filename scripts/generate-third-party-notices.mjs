@@ -15,6 +15,7 @@ const bundledRoots = [
   "@fortawesome/free-solid-svg-icons",
   "react",
   "react-dom",
+  "three",
   "@inrupt/solid-client",
   "@inrupt/solid-client-authn-browser",
 ];

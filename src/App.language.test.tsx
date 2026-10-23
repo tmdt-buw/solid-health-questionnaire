@@ -22,15 +22,16 @@ describe("standalone language", () => {
       />
     );
 
+    await screen.findByRole("combobox", { name: "Language" });
     expect(
-      await screen.findByRole("heading", { name: "Health starts with an honest look." })
+      screen.getByRole("heading", { name: "Health Questionnaire" })
     ).toBeInTheDocument();
     expect(document.documentElement).toHaveAttribute("lang", "en");
 
-    await user.click(screen.getByRole("button", { name: "DE" }));
+    await user.selectOptions(screen.getByRole("combobox", { name: "Language" }), "de");
 
     expect(
-      screen.getByRole("heading", { name: "Gesundheit beginnt mit einem ehrlichen Blick." })
+      screen.getByRole("heading", { name: "Gesundheitsfragebogen" })
     ).toBeInTheDocument();
     expect(document.documentElement).toHaveAttribute("lang", "de");
   });

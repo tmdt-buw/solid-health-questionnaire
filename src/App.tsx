@@ -1,3 +1,4 @@
+import StandaloneFooter from "./standalone/StandaloneFooter";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import AppOnboarding from "./components/AppOnboarding";
 import CategoryDetail from "./components/CategoryDetail";
@@ -500,26 +501,22 @@ export default function App({
   })();
 
   return (
-    <div className={`solid-health-questionnaire solid-health-questionnaire--${embedded ? "embedded" : "standalone"}`} lang={language} translate="no">
+    <div data-standalone-shell={embedded ? undefined : true} className={`solid-health-questionnaire solid-health-questionnaire--${embedded ? "embedded" : "standalone"}`} lang={language} translate="no">
       {!embedded && bootState !== "unauthenticated" && (
-        <header className="shq-standalone-header">
-          <a href="/solid-health-questionnaire/" className="shq-standalone-header__brand"><Icon name="heart" /><span>{UI_COPY[language].appName}</span></a>
-          <div>
+        <header className="shq-standalone-header" data-standalone-header>
+          <a href="/solid-health-questionnaire/" className="shq-standalone-header__brand" data-standalone-brand><Icon name="heart" /><span>{UI_COPY[language].appName}</span></a>
+          <div data-standalone-actions>
             {webId && <span className="shq-standalone-header__pod"><Icon name="pod" /> {language === "de" ? "Mein Pod" : "My Pod"}</span>}
-            <div className="shq-language" role="group" aria-label={language === "de" ? "Sprache" : "Language"}>
-              <button type="button" aria-pressed={language === "de"} className={language === "de" ? "is-active" : ""} onClick={() => setLanguage("de")}>DE</button>
-              <button type="button" aria-pressed={language === "en"} className={language === "en" ? "is-active" : ""} onClick={() => setLanguage("en")}>EN</button>
-            </div>
+            <label className="language-select"><select aria-label={language === "de" ? "Sprache" : "Language"} value={language} onChange={event => setLanguage(event.target.value === "de" ? "de" : "en")}><option value="en">{language === "de" ? "Englisch" : "English"}</option><option value="de">Deutsch</option></select></label>
             {webId && <button type="button" className="shq-button shq-button--ghost shq-button--small" onClick={() => void logout()}>{UI_COPY[language].logout}</button>}
           </div>
         </header>
       )}
       <div className="shq-app-stage">{content}</div>
-      {!embedded && bootState !== "unauthenticated" && (
-        <footer className="shq-standalone-footer">
-          <span>© 2026 TMDT</span><span>{UI_COPY[language].appName} {healthQuestionnaireVersion}</span><span><Icon name="lock" /> {UI_COPY[language].podFirst}</span>
-          <span className="shq-standalone-footer__legal"><a href="/solid-health-questionnaire/LICENSE.txt">{UI_COPY[language].license}</a><a href="/solid-health-questionnaire/NOTICE.txt">{UI_COPY[language].notice}</a><a href="/solid-health-questionnaire/THIRD_PARTY_NOTICES.txt">{UI_COPY[language].thirdPartyLicenses}</a></span>
-        </footer>
+      {!embedded && (
+        <StandaloneFooter title={UI_COPY[language].appName} version={healthQuestionnaireVersion} language={language} assetsBase={"/solid-health-questionnaire"}>
+          <a href="/solid-health-questionnaire/LICENSE.txt">{UI_COPY[language].license}</a><a href="/solid-health-questionnaire/NOTICE.txt">{UI_COPY[language].notice}</a><a href="/solid-health-questionnaire/THIRD_PARTY_NOTICES.txt">{UI_COPY[language].thirdPartyLicenses}</a>
+        </StandaloneFooter>
       )}
     </div>
   );

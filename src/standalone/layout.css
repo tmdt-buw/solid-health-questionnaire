@@ -1,0 +1,25 @@
+body.dataspace-standalone .solid-health-questionnaire--standalone .shq-app-stage { flex: 1 0 auto; }
+body.dataspace-standalone .shq-standalone-header__brand span { display: inline; }
+body.dataspace-standalone .shq-login__story { flex-direction: row; width: 100%; min-height: 0; border-radius: 0; overflow: visible; }
+body.dataspace-standalone .shq-login__story::before, body.dataspace-standalone .shq-login__story::after { display: none; }
+body.dataspace-standalone .shq-login__brand { flex: 0 0 44px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: #1769e8; background: #eaf2ff; }
+body.dataspace-standalone .shq-login__brand svg { width: 24px; height: 24px; color: inherit; }
+body.dataspace-standalone .shq-login__copy { padding: 0; }
+body.dataspace-standalone .shq-login__copy p { margin: 8px 0 0; color: #60728f; font-size: 14px; }
+body.dataspace-standalone .shq-login__panel { min-height: 0; width: 100%; display: block; border: 0; }
+body.dataspace-standalone .shq-login__panel > .shq-language { position: static; justify-content: flex-end; margin-bottom: 16px; }
+body.dataspace-standalone .shq-login__panel-heading { margin: 0 0 16px; }
+body.dataspace-standalone .shq-login__panel-heading h2 { font-size: 16px; }
+body.dataspace-standalone .shq-login__panel-heading span { display: none; }
+body.dataspace-standalone .shq-login__panel fieldset { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+body.dataspace-standalone .shq-provider { margin: 0; }
+body.dataspace-standalone .shq-provider em { display: none; }
+@media(max-width:700px) { body.dataspace-standalone .shq-login__panel fieldset { grid-template-columns: minmax(0,1fr); } }
+body.dataspace-standalone .shq-login-language { float: right; margin: 0 0 16px 12px; }
+body.dataspace-standalone .shq-login__panel form { clear: both; }
+body.dataspace-standalone .shq-app-stage:has(.shq-login) { display: flex; flex-direction: column; }
+body.dataspace-standalone .shq-login__story { justify-content: flex-start; }
+body.dataspace-standalone .shq-login__copy { flex: 1; min-width: 0; }
+body.dataspace-standalone .shq-login__copy h1 { max-width: none; font-weight: 800; letter-spacing: -.015em; overflow-wrap: anywhere; }
+body.dataspace-standalone .shq-login__panel-heading > svg { color: #1769e8; }
+body.dataspace-standalone .shq-provider.is-active .shq-provider__radio { border-color: #1769e8; background: #1769e8; }
