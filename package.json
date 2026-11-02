@@ -1,10 +1,10 @@
 {
   "name": "@hoelk-f/solid-health-questionnaire",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "private": false,
   "description": "A Solid-native health questionnaire with private Pod persistence and standalone/embed variants.",
   "engines": {
-    "node": ">=22 <25"
+    "node": "^22.0.0 || ^24.0.0"
   },
   "license": "Apache-2.0",
   "type": "module",
@@ -50,7 +50,7 @@
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "7.2.0",
     "@inrupt/solid-client": "3.0.0",
-    "@inrupt/solid-client-authn-browser": "4.0.0",
+    "@inrupt/solid-client-authn-browser": "5.0.3",
     "three": "^0.184.0"
   },
   "peerDependencies": {
