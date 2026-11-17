@@ -93,6 +93,10 @@ These thresholds are a product assumption, not a clinically validated cutoff.
 They require approval by the responsible health-domain owner before the app is
 used for health-related interpretation.
 
+## Complete Dataspace setup
+
+Use the [central local guide](https://github.com/hoelk-f/solid-dataspace/blob/main/LOCAL_DEVELOPMENT.md) to run this app with the Manager and other services. Its default local mode uses the published questionnaire image. The standalone view is `/solid-health-questionnaire/`; the Manager route is `/web/solid-health-questionnaire`. Starting the application does not create a Pod account or example health records.
+
 ## Development
 
 Requires a supported Node.js LTS release (Node.js 22 or 24).
@@ -133,13 +137,7 @@ Release versions are maintained by the workspace-level
 `versioning-update.ps1`; the workflow deliberately rejects an already published
 version instead of creating an uncommitted CI-only version.
 
-For production, serve the standalone OIDC application from a dedicated origin
-or subdomain. Inrupt's browser session restore pointer is origin-wide, so
-multiple independently authenticated path applications can overwrite each
-other's restore state. Same-origin standalone authentication is therefore a
-development convenience, not a supported production topology. The Manager
-embed is unaffected because it reuses the host session. The provided nginx
-configuration also sets a restrictive CSP and security headers.
+The standalone app uses Inrupt browser authentication 5.0.3 and its own prefixed session storage. It can be served under `/solid-health-questionnaire/` beside the other standalone apps on the configured Dataspace origin. The Manager embed reuses the host session. Keep the matching login/session code and reverse-proxy routing together when deploying; a separate subdomain is not required by the supported Dataspace setup. The provided nginx configuration sets CSP and other security headers.
 
 ## Content maintenance
 
